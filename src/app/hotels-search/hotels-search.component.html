@@ -1,0 +1,145 @@
+<div fxLayout="column" fxFill>
+    <div fxLayout="row" fxFlex="10">
+        <app-nav class="top"></app-nav>
+    </div>
+    <div fxFlex fxLayout="row">
+        <div fxFlex="5" fxLayout="column">
+        </div>
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row" fxFlex="18">
+                <div fxFlex fxLayout="column">
+                    <input id="typeahead-format" type="text" class="form-control" [(ngModel)]="model"
+                        [ngbTypeahead]="select" [resultFormatter]="formatter" />
+                    <label for="typeahead-format">Source:</label>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <select class="number of passengers form-select-sm mt-3">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <select class="number of rooms form-select-sm mt-3">
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                      </select>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <form class="example-form" fxLayout="row">
+                        <mat-form-field class="example-full-width" appearance="outline">
+
+                            <div fxLayout="column">
+                                <div fxLayout="row" fxFlex="5px" fxLayoutAlign="end end">
+
+                                </div>
+
+                                <div fxLayout="row" fxFlex="9px" fxLayoutAlign="end end" style="height: 5px;">
+
+                                    <input matInput [formControl]="startDate" [matDatepicker]="picker1">
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </div>
+
+
+                            </div>
+                            <mat-hint><b>START DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; mm/dd/yyyy</mat-hint>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div fxFlex fxLayout="column">
+                    <form class="example-form" fxLayout="row">
+                        <mat-form-field class="example-full-width" appearance="outline">
+
+                            <div fxLayout="column">
+                                <div fxLayout="row" fxFlex="5px" fxLayoutAlign="end end">
+
+                                </div>
+
+                                <div fxLayout="row" fxFlex="9px" fxLayoutAlign="end end" style="height: 5px;">
+
+                                    <input matInput [formControl]="startDate" [matDatepicker]="picker1">
+                                    <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker1></mat-datepicker>
+                                </div>
+
+
+                            </div>
+                            <mat-hint><b>START DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                &nbsp; mm/dd/yyyy</mat-hint>
+                        </mat-form-field>
+                    </form>
+                </div>
+                <div fxLayout="column">
+                    <div fxLayout="row" fxFlex="33">
+                            <div class="example-button-row">
+                                <button mat-raised-button color="primary" (click)="search()">Search</button>
+                            </div>        
+                    </div>
+            
+                </div>
+
+            </div>
+            <div fxLayout="row" fxFlex>
+                <div fxLayout="column" fxFill *ngIf="areFlightsAvailable" class="example-container mat-elevation-z8">
+                    <mat-table #table [dataSource]="dataSource">
+                        <ng-container matColumnDef="flight_number">
+                            <mat-header-cell *matHeaderCellDef> flight_number </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.flightNumber}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="Airline">
+                            <mat-header-cell *matHeaderCellDef> Airline </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.airlinesName}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="flight_type">
+                            <mat-header-cell *matHeaderCellDef> flight_type </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.flightType}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="source">
+                            <mat-header-cell *matHeaderCellDef> source </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.sourceCity}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="destination">
+                            <mat-header-cell *matHeaderCellDef> destination </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.destinationCity}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="arrival_time">
+                            <mat-header-cell *matHeaderCellDef> arrival_time </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.startDate}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="depart_time">
+                            <mat-header-cell *matHeaderCellDef> depart_time </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.endDate}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="rating">
+                            <mat-header-cell *matHeaderCellDef> rating </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.flightRating}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="cost">
+                            <mat-header-cell *matHeaderCellDef> cost </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> {{element.price}} </mat-cell>
+                        </ng-container>
+                        <ng-container matColumnDef="button">
+                            <mat-header-cell *matHeaderCellDef> button </mat-header-cell>
+                            <mat-cell *matCellDef="let element"> <button type="button"
+                                    class="btn btn-primary-outline pull-right" (click)="btnClick();"><i
+                                        class="fa fa-plus"></i> Book</button> </mat-cell>
+                        </ng-container>
+
+                        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+                    </mat-table>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="5" fxLayout="column">
+        </div>
+    </div>
+    <div fxLayout="row" fxFlex="5">
+
+    </div>
+</div>

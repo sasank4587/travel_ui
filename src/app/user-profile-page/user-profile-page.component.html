@@ -1,0 +1,81 @@
+<app-nav class="top"></app-nav>
+<div fxLayout="row" fxFill>
+    <div fxLayout="column" fxFlex="20">
+    </div>
+    <div fxLayout="column" fxFlex="50">
+        <div fxLayout="row" fxFlex="10">
+            <div *ngIf="!isUserExists" class="py-3 mt-4">
+                <h3 class="mt-4">User Details not Present</h3>
+            </div>
+        </div>
+        <div fxLayout="row" fxFlex="80">
+            <div fxLayout="column" fxFlex="10">
+
+            </div>
+            <div fxLayout="column" fxFlex="90">
+                <div fxLayout="column" fxFill>
+                    <div fxLayout="column" fxFill *ngIf="isUserExists" class="py-3 mt-4">
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> First Name :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.firstName}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> Last Name :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.lastName}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> Email :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.emailId}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> Contact Number :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.phoneNumber}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="10">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> Address :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.userAddress}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> Travel Mileage :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.travelMileage}}</h3>
+                            </div>
+                        </div>
+                        <div fxLayout="row" fxFlex="8">
+                            <div fxLayout="column" fxFlex="20">
+                                <h3> UserName :</h3>
+                            </div>
+                            <div fxLayout="column" fxFlex="30">
+                                <h3> {{profileDetails.userName}}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="column" fxFlex="30">
+    </div>
+</div>
