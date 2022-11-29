@@ -1,7 +1,7 @@
 import { Time } from "@angular/common";
 
 export class FlightResponse{
-    id : number;
+    flightScheduleId : number;
     price : number;
     flightNumber : String;
     airlinesName : String;
@@ -16,7 +16,7 @@ export class FlightResponse{
     endTime : Time;
 
     constructor(id, flightNumber, airlinesName, flightType, flightRating, sourceCity, destinationCity, price, startDate, endDate, startTime, endTime, logo){
-        this.id = id;
+        this.flightScheduleId = id;
         this.flightNumber = flightNumber;
         this.airlinesName = airlinesName;
         this.flightType = flightType;

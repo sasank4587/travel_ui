@@ -152,7 +152,7 @@
                         <ng-container matColumnDef="button">
                             <mat-header-cell *matHeaderCellDef> button </mat-header-cell>
                             <mat-cell *matCellDef="let element"> <button type="button" 
-                                class="btn btn-primary-outline pull-right" (click)="btnClick(element.flightNumber);"><i
+                                class="btn btn-primary-outline pull-right" (click)="btnClick(element.flightScheduleId);"><i
                                     class="fa fa-plus"></i> Book</button> </mat-cell>
                         </ng-container>
 
@@ -202,7 +202,7 @@
                         <ng-container matColumnDef="button">
                             <mat-header-cell *matHeaderCellDef> button </mat-header-cell>
                             <mat-cell *matCellDef="let element"> <button type="button" 
-                                class="btn btn-primary-outline pull-right" (click)="returnBtnClick(element.flightNumber);"><i
+                                class="btn btn-primary-outline pull-right" (click)="returnBtnClick(element.id);"><i
                                     class="fa fa-plus"></i> Book</button> </mat-cell>
                         </ng-container>
 

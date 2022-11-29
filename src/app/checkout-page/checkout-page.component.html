@@ -47,10 +47,10 @@
                                 <div class="p-5">
                                     <div class="d-flex justify-content-between align-items-center mb-5">
                                         <h1 class="fw-bold mb-0 text-black">Shopping Cart</h1>
-                                        <h5 class="mb-0 text-muted">3 items</h5>
+                                        <h5 class="mb-0 text-muted">{{count}} items</h5>
                                     </div>
 
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                    <div *ngIf="flightPresent" class="row mb-4 d-flex justify-content-between align-items-center">
                                         <hr class="my-4">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img src="https://news.delta.com/sites/default/files/2021-11/delta_c_r.png"
@@ -84,7 +84,7 @@
 
                                     <!-- <hr class="my-4"> -->
 
-                                    <div class="row mb-4 d-flex justify-content-between align-items-center">
+                                    <div *ngIf="returnFlightPresent" class="row mb-4 d-flex justify-content-between align-items-center">
 
                                         <hr class="my-4">
                                         <div class="col-md-2 col-lg-2 col-xl-2">

@@ -89,6 +89,8 @@ export class CheckoutPageComponent implements OnInit {
     let transactionRequest = new TransactionRequest(this.userId,this.flightId,this.passengerCount,this.returnFlightId,this.returnPassengerCount,this.totalPrice,this.tax,null,this.totalPrice+this.tax);
     this.transactionService.postTransactions(transactionRequest).subscribe((successData) => {
       this.router.navigate(['/home']);
+      sessionStorage.removeItem("travelFlightId");
+      sessionStorage.removeItem("retrunFlightId");
       console.log(successData)
     });
   }
