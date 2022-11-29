@@ -30,7 +30,9 @@ export class HomeComponent implements OnInit{
   flightsList : Array<FlightResponse>;
   returnFlightsList : Array<FlightResponse>;
   areFlightsAvailable : boolean = false;
+  areReturnFlightsAvailable : boolean = false;
   returnFlightsRequired : boolean = false;
+  onSearchClick : boolean = false;
   dataSource : any;
   flightSearchRequest : FlightSearchRequest;
   firstName : string;
@@ -51,6 +53,9 @@ export class HomeComponent implements OnInit{
 
   displayedColumns: any[] = ['flight_number', 'Airline', 'flight_type', 'source', 'destination', 'arrival_time','depart_time', 'rating', 'cost','button'];
   search(){
+    this.onSearchClick = true;
+    this.areFlightsAvailable = false;
+    this.returnFlightsRequired = false;
     console.log(this.sourceControl.value);
     console.log(this.destinationControl.value);
     console.log(this.startDate.value);
@@ -60,14 +65,18 @@ export class HomeComponent implements OnInit{
     this.flightSearchService.getFlightsList(this.flightSearchRequest).subscribe(response =>{
       this.flightSearchResponse = response;
         console.log(this.flightSearchResponse);
-        if(this.flightSearchResponse == null){
+        if(this.flightSearchResponse == null || this.flightSearchResponse.flightList.length==0){
           this.areFlightsAvailable = false;
         }else{
           this.flightsList = this.flightSearchResponse.flightList;
           this.dataSource = new MatTableDataSource(this.flightsList);
           this.areFlightsAvailable = true;
           if(this.checkBox.value.return){
-            this.returnFlightsList = this.flightSearchResponse.returnFlightList;
+            if(this.flightSearchResponse.returnFlightList.length == 0){
+              this.areReturnFlightsAvailable = false;
+            } else{
+              this.returnFlightsList = this.flightSearchResponse.returnFlightList;
+            }
           }
         }
       });

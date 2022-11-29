@@ -160,7 +160,10 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
                 </div>
-                <div  fxLayout="column" fxFill *ngIf="returnFlightsRequired" class="example-container mat-elevation-z8">
+                <div  fxLayout="column" *ngIf="!areFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
+                    Flights are not available for this date. Try changing dates.
+                </div>
+                <div  fxLayout="column" fxFill *ngIf="returnFlightsRequired && areReturnFlightsAvailable" class="example-container mat-elevation-z8">
                     <h1> Showing return flights</h1>
                     <mat-table #table [dataSource]="dataSource">
                         <ng-container matColumnDef="flight_number">
@@ -209,6 +212,9 @@
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
+                </div>
+                <div  fxLayout="column" *ngIf="!areReturnFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
+                    Flights are not available for this date. Try changing dates.
                 </div>
             </div>
         </div>
