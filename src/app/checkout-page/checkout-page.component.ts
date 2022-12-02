@@ -31,6 +31,7 @@ export class CheckoutPageComponent implements OnInit {
   hotelId: any;
   hotelCheckInDate: string;
   hotelCheckOutDate: string;
+  hotelCheckInDays : any;
   flightPresent: Boolean = false;
   returnFlightPresent: Boolean = false;
   hotelPresent: Boolean = false;
@@ -72,13 +73,14 @@ export class CheckoutPageComponent implements OnInit {
     this.hotelId = sessionStorage.getItem("hotelRoomId");
     if (this.hotelId != null) {
       this.hotelCheckInDate = sessionStorage.getItem("hotelcheckInDate");
-      this.hotelCheckOutDate = sessionStorage.getItem("hotelRoomOutDate");
+      this.hotelCheckOutDate = sessionStorage.getItem("hotelcheckOutDate");
+      this.hotelCheckInDays = sessionStorage.getItem("hotelCheckInDays");
       this.hotelPresent = true;
       this.hotelRoomsCount = 1;
       this.count++;
       this.hotelSearchService.getHotelDetails(this.hotelId).subscribe(response => {
         this.hotelResponse = response;
-        this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount;
+        this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount * this.hotelCheckInDays;
         this.totalPrice += this.hotelRoomPrice;
         this.tax = this.totalPrice * 0.0825;
       });
@@ -109,7 +111,7 @@ export class CheckoutPageComponent implements OnInit {
     if (this.hotelRoomsCount != null) {
       console.log("Hotel passengers:", this.hotelRoomsCount);
       this.totalPrice -= this.hotelRoomPrice;
-      this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount;
+      this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount * this.hotelCheckInDays;
       this.totalPrice += this.hotelRoomPrice;
       this.tax = this.totalPrice * 0.0825;
     }
@@ -117,11 +119,14 @@ export class CheckoutPageComponent implements OnInit {
 
   submit() {
     this.userId = sessionStorage.getItem('id');
-    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.totalPrice, this.tax, null, this.totalPrice + this.tax);
+    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.hotelId, this.hotelRoomsCount, this.hotelCheckInDate, this.hotelCheckOutDate, this.totalPrice, this.tax, null, this.totalPrice + this.tax);
     this.transactionService.postTransactions(transactionRequest).subscribe((successData) => {
       this.router.navigate(['/home']);
       sessionStorage.removeItem("travelFlightId");
       sessionStorage.removeItem("retrunFlightId");
+      sessionStorage.removeItem("hotelRoomId");
+      sessionStorage.removeItem("hotelcheckInDate");
+      sessionStorage.removeItem("hotelcheckOutDate");
       console.log(successData)
     });
   }

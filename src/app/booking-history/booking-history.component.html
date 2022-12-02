@@ -3,10 +3,10 @@
 </div>
 <div>
     <h2 style="text-align:center ;"> Booking history</h2>
-    <div class="example-action-buttons">
+    <!-- <div class="example-action-buttons">
         <button mat-button (click)="accordion.openAll()">Expand All</button>
         <button mat-button (click)="accordion.closeAll()">Collapse All</button>
-    </div>
+    </div> -->
     <div class="mt-4  p-3 mb-5 bg-white rounded card" *ngFor="let transaction of transactionResponseList; index as i;">
         <mat-accordion class="example-headers-align" multi>
             <mat-expansion-panel>
@@ -26,7 +26,7 @@
                     </mat-panel-description> -->
                 </mat-expansion-panel-header>
 
-                <div> Flight details
+                <div *ngIf="transaction.flight"> Flight details
                     <div class="table-responsive">
                         <table class="table table-bordered">
                             <thead>
@@ -38,6 +38,7 @@
                                     <th>Destination City</th>
                                     <th>Start Date</th>
                                     <th>End Date</th>
+                                    <th>Number of Passengers</th>
                                     <th>Distance travelled</th>
                                     <th>Price(per 1 person)</th>
                                 </tr>
@@ -52,7 +53,8 @@
                                     <td>{{transaction.flightResponse.destinationCity}}</td>
                                     <td>{{transaction.flightResponse.startDate}}</td>
                                     <td>{{transaction.flightResponse.endDate}}</td>
-                                    <td>miles</td>
+                                    <td>{{transaction.numberOfPassengers}}</td>
+                                    <td>{{transaction.flightResponse.miles}}</td>
                                     <td>{{transaction.flightResponse.price}}</td>
                                 </tr>
                                 <tr *ngIf="transaction.returnFlight">
@@ -63,7 +65,8 @@
                                     <td>{{transaction.returnFlightResponse.destinationCity}}</td>
                                     <td>{{transaction.returnFlightResponse.startDate}}</td>
                                     <td>{{transaction.returnFlightResponse.endDate}}</td>
-                                    <td>miles</td>
+                                    <td>{{transaction.returnPassengers}}</td>
+                                    <td>{{transaction.returnFlightResponse.miles}}</td>
                                     <td>{{transaction.returnFlightResponse.price}}</td>
                                 </tr>
                             </tbody>
@@ -82,20 +85,22 @@
                                     <th>check-in Date</th>
                                     <th>Check-out date</th>
                                     <th>Number of rooms</th>
-                                    <th>Distance travelled</th>
-                                    <th>Price(per 1 room)</th>
+                                    <th>Number of days</th>
+                                    <th>Room Type</th>
+                                    <th>Price(per room per day)</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
                                     <td>1</td>
-                                    <td>Anna</td>
-                                    <td>Pitt</td>
-                                    <td>35</td>
-                                    <td>New York</td>
-                                    <td>USA</td>
-                                    <td>Female</td>
-                                    <td>Yes</td>
+                                    <td>{{transaction.hotelResponse.hotelName}}</td>
+                                    <td>{{transaction.hotelResponse.location}}</td>
+                                    <td>{{transaction.hotelCheckInDate}}</td>
+                                    <td>{{transaction.hotelCheckOutDate}}</td>
+                                    <td>{{transaction.hotelRooms}}</td>
+                                    <td>{{transaction.hotelNumberOfDays}}</td>
+                                    <td>{{transaction.hotelResponse.hotelType}}</td>
+                                    <td>{{transaction.hotelResponse.hotelRoomsList[0].price}}</td>
                                 </tr>
                             </tbody>
                         </table>

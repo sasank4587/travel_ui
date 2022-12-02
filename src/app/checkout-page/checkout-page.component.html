@@ -74,7 +74,7 @@
                                             </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h5 class="mb-0">$ {{flightResponse.price}}</h5>
+                                            <h5 class="mb-0">$ {{flightTicketPrice}}</h5>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
@@ -109,7 +109,7 @@
                                         </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
-                                            <h5 class="mb-0">€ {{returnlightResponse.price}}</h5>
+                                            <h5 class="mb-0">€ {{returnFlightTicketPrice}}</h5>
                                         </div>
                                         <div class="col-md-1 col-lg-1 col-xl-1 text-end">
                                             <a href="#!" class="text-muted"><i class="fas fa-times"></i></a>
@@ -132,7 +132,9 @@
                                         <div class="col-md-3 col-lg-3 col-xl-3">
                                             <h5 class="text-muted">{{hotelResponse.hotelName}}</h5>
                                             <h5 class="text-black mb-0">{{hotelResponse.franchiseName}}</h5>
+                                            <h5 class="text-black mb-0">{{hotelResponse.hotelType}}</h5>
                                             <h5 class="text-black mb-0">{{hotelCheckInDate}} to {{hotelCheckOutDate}}</h5>
+                                            <h5 class="text-black mb-0">{{hotelCheckInDays}} Days</h5>
                                             <h5 class="text-black mb-0">{{hotelResponse.location}}</h5>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">

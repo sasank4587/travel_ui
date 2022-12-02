@@ -51,6 +51,7 @@ export class HotelsSearchComponent implements OnInit {
   hotelList : Array<HotelResponse>;
   hotelSearchResponse : HotelSearchResponse;
   hotelSearchRequest : HotelSearchRequest;
+  numberOfDays : any;
   
 
   constructor(public hotelSearchService : HotelSearchService, public router: Router) { }
@@ -75,6 +76,7 @@ export class HotelsSearchComponent implements OnInit {
           this.areHotelsAvailable = false;
         }else{
           this.hotelList = this.hotelSearchResponse.hotelResponseList;
+          this.numberOfDays = this.hotelSearchResponse.numberOfDays;
           this.areHotelsAvailable = true;
         }
       });
@@ -83,7 +85,8 @@ export class HotelsSearchComponent implements OnInit {
   btnClick(value : string){
     sessionStorage.setItem("hotelRoomId", value);
     sessionStorage.setItem("hotelcheckInDate", this.startDate.value);
-    sessionStorage.setItem("hotelRoomOutDate", this.retrunDate.value);
+    sessionStorage.setItem("hotelcheckOutDate", this.retrunDate.value);
+    sessionStorage.setItem("hotelCheckInDays", this.numberOfDays);
     this.router.navigate(['/checkout']);
   }
 

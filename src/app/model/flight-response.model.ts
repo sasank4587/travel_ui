@@ -14,8 +14,9 @@ export class FlightResponse{
     endDate : Date;
     startTime : Time;
     endTime : Time;
+    miles : number;
 
-    constructor(id, flightNumber, airlinesName, flightType, flightRating, sourceCity, destinationCity, price, startDate, endDate, startTime, endTime, logo){
+    constructor(id, flightNumber, airlinesName, flightType, flightRating, sourceCity, destinationCity, price, startDate, endDate, startTime, endTime, logo, miles){
         this.flightScheduleId = id;
         this.flightNumber = flightNumber;
         this.airlinesName = airlinesName;
@@ -29,5 +30,6 @@ export class FlightResponse{
         this.startTime = startTime;
         this.endTime = endTime;
         this.logo = logo;
+        this.miles = miles;
     }
 }
