@@ -1,6 +1,6 @@
 # Version1
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.9.
+Angular CLI: 10.1.2 Node: 14.16.1 boot strap : 5.2.2 Package Manager: npm 6.14.12
 
 ## Development server
 
