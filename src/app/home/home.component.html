@@ -3,14 +3,15 @@
         <app-nav class="top"></app-nav>
     </div>
     <div fxFlex fxLayout="row">
-        <div  fxFlex="10" fxLayout="column">
+        <div fxFlex="10" fxLayout="column">
         </div>
-        <div  fxFlex fxLayout="column">
+        <div fxFlex fxLayout="column">
             <div fxLayout="row" fxFlex="18">
                 <div fxLayout="column" fxFill>
-                    <div fxLayout="row" fxFlex="10">
+                    <div fxLayout="row" fxFlex="15">
                     </div>
                     <div fxLayout="row" fxFlex="80">
+
                         <div fxLayout="column" fxFlex>
                             <form class="example-form">
                                 <mat-form-field class="example-full-width" appearance="fill">
@@ -26,6 +27,9 @@
                                 </mat-form-field>
                             </form>
                         </div>
+                        <div>
+
+                        </div>
                         <div fxLayout="column" fxFlex>
                             <form class="example-form">
                                 <mat-form-field class="example-full-width" appearance="fill">
@@ -37,32 +41,34 @@
                                             {{option}}
                                         </mat-option>
                                     </mat-autocomplete>
-    
+
                                     <mat-hint><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DESTINATION &nbsp;
                                             LOCATION</b></mat-hint>
-    
+
                                 </mat-form-field>
                             </form>
                         </div>
                         <div fxLayout="column" fxFlex>
                             <form class="example-form" fxLayout="row">
                                 <mat-form-field class="example-full-width" appearance="fill">
-    
+
                                     <div fxLayout="column">
                                         <div fxLayout="row" fxFlex="5px" fxLayoutAlign="end end">
-    
+
                                         </div>
-    
+
                                         <div fxLayout="row" fxFlex="9px" fxLayoutAlign="end end" style="height: 5px;">
-    
+
                                             <input matInput [formControl]="startDate" [matDatepicker]="picker1">
-                                            <mat-datepicker-toggle matIconSuffix [for]="picker1"></mat-datepicker-toggle>
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker1">
+                                            </mat-datepicker-toggle>
                                             <mat-datepicker #picker1></mat-datepicker>
                                         </div>
-    
-    
+
+
                                     </div>
-                                    <mat-hint><b>START DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                    <mat-hint><b>START DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        &nbsp;
                                         &nbsp; mm/dd/yyyy</mat-hint>
                                 </mat-form-field>
                             </form>
@@ -70,48 +76,58 @@
                         <div fxLayout="column" fxFlex>
                             <form class="example-form" fxLayout="row">
                                 <mat-form-field class="example-full-width" appearance="fill">
-    
+
                                     <div fxLayout="column">
                                         <div fxLayout="row" fxFlex="5px" fxLayoutAlign="end end">
-    
+
                                         </div>
-    
+
                                         <div fxLayout="row" fxFlex="9px" fxLayoutAlign="end end" style="height: 5px;">
                                             <input matInput [formControl]="retrunDate" [matDatepicker]="picker2">
-    
-                                            <mat-datepicker-toggle matIconSuffix [for]="picker2"></mat-datepicker-toggle>
+
+                                            <mat-datepicker-toggle matIconSuffix [for]="picker2">
+                                            </mat-datepicker-toggle>
                                             <mat-datepicker #picker2></mat-datepicker>
-    
+
                                         </div>
-    
-    
+
+
                                     </div>
-                                    <mat-hint><b>RETURN DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; mm/dd/yyyy
+                                    <mat-hint><b>RETURN DATE</b> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;
+                                        mm/dd/yyyy
                                     </mat-hint>
                                 </mat-form-field>
                             </form>
                         </div>
                         <div fxLayout="column">
                             <div fxLayout="row" fxFlex="33">
-                                <div><div class="example-button-row" [formGroup]="checkBox">
-                                    <mat-checkbox formControlName="return" class="example-margin">Search Return Flights</mat-checkbox>
-                                </div>
+                                <div>
+                                    <div class="example-button-row" [formGroup]="checkBox">
+                                        <mat-checkbox formControlName="return" class="example-margin">Search Return
+                                            Flights</mat-checkbox>
+                                    </div>
                                 </div>
                                 &nbsp;&nbsp;&nbsp;&nbsp;
-                                    <div class="example-button-row">
-                                        <button mat-raised-button color="primary" (click)="search()">Search</button>
-                                    </div>        
+                                <div class="example-button-row">
+                                    <button mat-raised-button color="primary" (click)="search()">Search</button>
+                                </div>
                             </div>
-                    
-                        </div>    
+
+                        </div>
                     </div>
                     <div fxLayout="row" fxFlex="10">
-                    </div> 
+                    </div>
                 </div>
             </div>
             <div fxLayout="row" fxFlex>
-                <div  fxLayout="column" fxFill *ngIf="areFlightsAvailable" class="example-container mat-elevation-z8">
-                    <h1> Showing flights</h1>
+                <div fxLayout="column" fxFill *ngIf="areFlightsAvailable" class="mt-4  p-3 mb-5 bg-white rounded card"
+                    style="border-radius: 15px;">
+                    <!-- <div class="example-header" style="float:right ;">
+                        <mat-form-field>
+                          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+                        </mat-form-field>
+                      </div> -->
+                    <h1 style="text-align:center ;"> Showing flights</h1>
                     <mat-table #table [dataSource]="dataSource">
                         <ng-container matColumnDef="flight_number">
                             <mat-header-cell *matHeaderCellDef> flight_number </mat-header-cell>
@@ -151,19 +167,20 @@
                         </ng-container>
                         <ng-container matColumnDef="button">
                             <mat-header-cell *matHeaderCellDef> button </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> <button type="button" 
-                                class="btn btn-primary-outline pull-right" (click)="btnClick(element.flightScheduleId);"><i
-                                    class="fa fa-plus"></i> Book</button> </mat-cell>
+                            <mat-cell *matCellDef="let element"> <button type="button" class="btn btn-primary"
+                                    (click)="btnClick(element.flightScheduleId);"><i class="fa fa-plus"></i>
+                                    Book</button> </mat-cell>
                         </ng-container>
 
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
                 </div>
-                <div  fxLayout="column" *ngIf="!areFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
+                <div fxLayout="column" *ngIf="!areFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
                     Flights are not available for this date. Try changing dates.
                 </div>
-                <div  fxLayout="column" fxFill *ngIf="returnFlightsRequired && areReturnFlightsAvailable" class="example-container mat-elevation-z8">
+                <div fxLayout="column" fxFill *ngIf="returnFlightsRequired && areReturnFlightsAvailable"
+                    class="mt-4  p-3 mb-5 bg-white rounded card">
                     <h1> Showing return flights</h1>
                     <mat-table #table [dataSource]="dataSource">
                         <ng-container matColumnDef="flight_number">
@@ -204,21 +221,22 @@
                         </ng-container>
                         <ng-container matColumnDef="button">
                             <mat-header-cell *matHeaderCellDef> button </mat-header-cell>
-                            <mat-cell *matCellDef="let element"> <button type="button" 
-                                class="btn btn-primary-outline pull-right" (click)="returnBtnClick(element.id);"><i
-                                    class="fa fa-plus"></i> Book</button> </mat-cell>
+                            <mat-cell *matCellDef="let element"> <button type="button" class="btn btn-primary"
+                                    (click)="returnBtnClick(element.flightScheduleId);"><i class="fa fa-plus"></i>
+                                    Book</button> </mat-cell>
                         </ng-container>
 
                         <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
                 </div>
-                <div  fxLayout="column" *ngIf="!areReturnFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
-                    Flights are not available for this date. Try changing dates.
+                <div fxLayout="column" *ngIf="!areReturnFlightsAvailable && onSearchClick && returnFlightsRequired"
+                    fxFill style="text-align:center ;">
+                    Return Flights are not available for this date. Try changing dates.
                 </div>
             </div>
         </div>
-        <div  fxFlex="10" fxLayout="column">
+        <div fxFlex="10" fxLayout="column">
         </div>
     </div>
     <div fxLayout="row" fxFlex="5">

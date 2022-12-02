@@ -22,7 +22,7 @@ export class FlightSearchService {
     return this.http.post<FlightSearchList>(API_URL+"/search", flightSearchRequest);
   }
 
-  getFlightDetails(flightId : String) : any{
+  getFlightDetails(flightId : number) : any{
     console.log(flightId);
     return this.http.get<FlightResponse>(API_URL+"/"+flightId)
   }

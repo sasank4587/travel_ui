@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable, OperatorFunction} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
-import { FlightSearchService } from '../services/flight-search/flight-search-service';
-import { FlightResponse } from 'src/app/model/flight-response.model';
-import { FlightSearchList } from 'src/app/model/flight-search-list.model';
-import { MatTableDataSource } from '@angular/material/table';
-import { FlightSearchRequest } from '../model/flight-search-request.model';
+import { Router } from '@angular/router';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { HotelSearchRequest } from '../model/hotel-search-request.model';
+import { HotelSearchService } from '../services/hotels/hotel-service';
+import { HotelRoomResponse } from '../model/hotel-room-response.model';
+import { HotelResponse } from '../model/hotel-response.model';
+import { HotelSearchResponse } from '../model/hotel-search-response.model';
 
 const states = [
   'Alabama',
@@ -24,7 +25,6 @@ const states = [
 })
 
 export class HotelsSearchComponent implements OnInit {
-
   public model: any;
 
 	formatter = (result: string) => result.toUpperCase();
@@ -39,60 +39,56 @@ export class HotelsSearchComponent implements OnInit {
 		);
 
   sourceControl = new FormControl('');
-  destinationControl = new FormControl('');
+  franchiseControl = new FormControl('');
   startDate = new FormControl('');
   retrunDate = new FormControl('');
-  options1: string[] = ['One', 'Two', 'Three'];
-  options2: string[] = ['One', 'Two', 'Three'];
+  options1: string[] = ['Chandigarh', 'Delhi', 'Mumbai', 'Austin', 'Dallas', 'Houston'];
+  options2: string[] = ['Chandigarh', 'Delhi', 'Mumbai', 'Austin', 'Dallas', 'Houston'];
   filteredOptions1: Observable<string[]>;
-  filteredOptions2: Observable<string[]>;
-  flightSearchResponse : FlightSearchList;
-  flightsList : Array<FlightResponse>;
-  returnFlightsList : Array<FlightResponse>;
-  areFlightsAvailable : boolean = false;
+  areHotelsAvailable : boolean = false;
   dataSource : any;
-  flightSearchRequest : FlightSearchRequest;
+  hotelRoomResponseList : Array<HotelRoomResponse>;
+  hotelList : Array<HotelResponse>;
+  hotelSearchResponse : HotelSearchResponse;
+  hotelSearchRequest : HotelSearchRequest;
+  
 
-  constructor(public flightSearchService : FlightSearchService) { }
+  constructor(public hotelSearchService : HotelSearchService, public router: Router) { }
 
   ngOnInit() {
     this.filteredOptions1 = this.sourceControl.valueChanges.pipe(
       startWith(''),
       map(value => this._filter1(value || '')),
     );
-    this.filteredOptions2 = this.destinationControl.valueChanges.pipe(
-      startWith(''),
-      map(value => this._filter2(value || '')),
-    );
   }
 
   displayedColumns: any[] = ['flight_number', 'Airline', 'flight_type', 'source', 'destination', 'arrival_time','depart_time', 'rating', 'cost','button'];
   search(){
     console.log(this.sourceControl.value);
-    console.log(this.destinationControl.value);
     console.log(this.startDate.value);
     console.log(this.retrunDate.value);
-    this.flightSearchRequest = new FlightSearchRequest(this.sourceControl.value, this.destinationControl.value,this.startDate.value,this.retrunDate.value,false);
-    this.flightSearchService.getFlightsList(this.flightSearchRequest).subscribe(response =>{
-      this.flightSearchResponse = response;
-        console.log(this.flightSearchResponse);
-        if(this.flightSearchResponse == null){
-          this.areFlightsAvailable = false;
+    this.hotelSearchRequest = new HotelSearchRequest(this.sourceControl.value,"",this.startDate.value,this.retrunDate.value);
+    this.hotelSearchService.getHotels(this.hotelSearchRequest).subscribe(response =>{
+      this.hotelSearchResponse = response;
+        console.log(this.hotelSearchResponse);
+        if(this.hotelSearchResponse == null){
+          this.areHotelsAvailable = false;
         }else{
-          this.flightsList = this.flightSearchResponse.flightList;
-          this.dataSource = new MatTableDataSource(this.flightsList);
-          this.returnFlightsList = this.flightSearchResponse.returnFlightList;
-          this.areFlightsAvailable = true;
+          this.hotelList = this.hotelSearchResponse.hotelResponseList;
+          this.areHotelsAvailable = true;
         }
       });
+  }
+
+  btnClick(value : string){
+    sessionStorage.setItem("hotelRoomId", value);
+    sessionStorage.setItem("hotelcheckInDate", this.startDate.value);
+    sessionStorage.setItem("hotelRoomOutDate", this.retrunDate.value);
+    this.router.navigate(['/checkout']);
   }
 
   private _filter1(value: string): string[] {
     const filterValue = value.toLowerCase();
     return this.options1.filter(option => option.toLowerCase().includes(filterValue));
-  }
-  private _filter2(value: string): string[] {
-    const filterValue = value.toLowerCase();
-    return this.options2.filter(option => option.toLowerCase().includes(filterValue));
   }
 }

@@ -7,6 +7,7 @@ import { CheckoutPageComponent } from './checkout-page/checkout-page.component';
 import { UserProfilePageComponent } from './user-profile-page/user-profile-page.component';
 import { UserPaymentPageComponent } from './user-payment-page/user-payment-page.component';
 import { HotelsSearchComponent } from './hotels-search/hotels-search.component';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
 
 const routes: Routes = [
   {path : "" , redirectTo : "home", pathMatch : "full"},
@@ -16,6 +17,7 @@ const routes: Routes = [
   {path : "profile", component : UserProfilePageComponent},
   {path : "payment-methods", component : UserPaymentPageComponent},
   {path : "register", component : RegistrationPageComponent},
+  {path : "history", component : BookingHistoryComponent},
   {path : 'home', component : HomeComponent}
 ];
 

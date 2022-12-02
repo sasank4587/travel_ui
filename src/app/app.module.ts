@@ -33,6 +33,8 @@ import { UserProfilePageComponent } from './user-profile-page/user-profile-page.
 import { UserPaymentPageComponent } from './user-payment-page/user-payment-page.component';
 import { HotelsSearchComponent } from './hotels-search/hotels-search.component';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { BookingHistoryComponent } from './booking-history/booking-history.component';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,8 @@ import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-b
     CheckoutPageComponent,
     UserProfilePageComponent,
     UserPaymentPageComponent,
-    HotelsSearchComponent
+    HotelsSearchComponent,
+    BookingHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -72,7 +75,8 @@ import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-b
     MatTableModule,
     NgbModule,
     NgbAlertModule,
-    NgbPaginationModule
+    NgbPaginationModule,
+    MatExpansionModule
   ],
   providers: [],
   bootstrap: [AppComponent]

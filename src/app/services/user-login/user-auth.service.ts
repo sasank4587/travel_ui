@@ -2,9 +2,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AuthenticationRequest } from 'src/app/model/authentication-request.model';
 import {map} from 'rxjs/operators';
-import { NewPassword } from 'src/app/model/newpassword.model';
+import { UserRegistrationRequest } from 'src/app/model/user-registration-request.model';
 
 const API_URL = "http://localhost:8081/user/login";
+const REGISTER_URL = "http://localhost:8081/user";
 //export const Forgot_URL="http://localhost:8082/tweets";
 
 @Injectable({
@@ -25,6 +26,23 @@ export class UserAuthService {
       })
     );
   }
+
+  addUser(request : UserRegistrationRequest):any{
+    return this.http.post(REGISTER_URL,request).pipe(
+      map((successData : Response)=>{
+        console.log(successData); 
+        return successData;
+      }),
+      map(failureData=>{
+        console.log(failureData);
+        return failureData;
+      })
+    );
+  }
+
+
+
+
   // forgotPassword(username : string, password : string):any{
   //   let newPassword = new NewPassword(password);
   //   return this.http.put(Forgot_URL+"/"+username+"/forgot",newPassword);

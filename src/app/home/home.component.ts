@@ -75,7 +75,10 @@ export class HomeComponent implements OnInit{
             if(this.flightSearchResponse.returnFlightList.length == 0){
               this.areReturnFlightsAvailable = false;
             } else{
+              this.areReturnFlightsAvailable = true;
               this.returnFlightsList = this.flightSearchResponse.returnFlightList;
+              console.log("Return FLights");
+              console.log(this.returnFlightsList);
             }
           }
         }
@@ -91,6 +94,12 @@ export class HomeComponent implements OnInit{
     } else{
       this.router.navigate(['/checkout']);
     }
+  }
+
+  applyFilter(filterValue: string) {
+    filterValue = filterValue.trim(); // Remove whitespace
+    filterValue = filterValue.toLowerCase(); // Datasource defaults to lowercase matches
+    this.dataSource.filter = filterValue;
   }
 
   returnBtnClick(value: string){

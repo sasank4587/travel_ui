@@ -20,6 +20,11 @@ export class TransactionServie {
     return this.http.post<any>(API_URL+"/add", transactionRequest);
   }
 
+  getHistory(userIs : any) : any{
+    console.log(userIs);
+    return this.http.get<any>(API_URL+"/"+userIs);
+  }
+
 //   getFlightDetails(flightId : String) : any{
 //     console.log(flightId);
 //     return this.http.get<FlightResponse>(API_URL+"/"+flightId)
