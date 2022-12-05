@@ -3,13 +3,13 @@ import { Time } from "@angular/common";
 export class FlightResponse{
     flightScheduleId : number;
     price : number;
-    flightNumber : String;
-    airlinesName : String;
+    flightNumber : string;
+    airlinesName : string;
     flightType : String;
     flightRating : number;
     sourceCity : string;
-    destinationCity : String;
-    logo : String;
+    destinationCity : string;
+    logo : string;
     startDate : Date;
     endDate : Date;
     startTime : Time;

@@ -5,7 +5,7 @@ export class UserProfile {
     phoneNumber : string;
     emailId : string;
     userAddress : string;
-    travelMileage : DoubleRange;
+    travelMileage : number;
     userName : string;
 
     constructor(id, username, firstName, lastName, email, password, contactNum, travelMileage){

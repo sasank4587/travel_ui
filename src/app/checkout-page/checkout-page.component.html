@@ -1,38 +1,3 @@
-<!-- <div fxLayout="column" fxFill>
-    <div fxLayout="row" fxFlex="10" style="background-color:beige ;">
-        <app-nav class="top"></app-nav>
-    </div>
-    <div fxLayout="row" fxFlex="20">
-        <div fxLayout="column" fxFlex="10" style="background-color:black ;">
-
-        </div>
-        <div fxLayout="column" fxFlex>
-            <div class="row">
-                <h2 style="text-align:center ;"> Flight Details</h2>
-                <div class="col-sm-3">
-                    <p>{{flightResponse.flightNumber}}</p>
-                    <p>{{flightResponse.sourceCity}} to {{flightResponse.destinationCity}}</p>
-                    <p>{{flightResponse.startDate}} {{flightResponse.startTime}} and to {{flightResponse.endDate}} {{flightResponse.endTime}}</p>
-                    <p>{{flightResponse.airlinesName}}</p>
-                </div>
-                <div class="col-sm-3" >
-                </div>
-                <div class="col-sm-3">
-                    <p>{{flightResponse.flightRating}}</p>
-                    <p>{{flightResponse.price}}</p>
-                </div>
-                <div class="col-sm-3" style="text-align:end ;">
-                    <a href="#" style="float: left ;">
-                        <span class="glyphicon glyphicon-trash"></span>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div fxLayout="column" fxFlex="10" style="background-color:black ;">
-
-        </div>
-    </div>
-</div> -->
 <div>
     <app-nav class="top"></app-nav>
 </div>
@@ -50,7 +15,8 @@
                                         <h5 class="mb-0 text-muted">{{count}} items</h5>
                                     </div>
 
-                                    <div *ngIf="flightPresent" class="row mb-4 d-flex justify-content-between align-items-center">
+                                    <div *ngIf="flightPresent"
+                                        class="row mb-4 d-flex justify-content-between align-items-center">
                                         <hr class="my-4">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
                                             <img src="https://news.delta.com/sites/default/files/2021-11/delta_c_r.png"
@@ -67,7 +33,8 @@
                                                 {{flightResponse.endTime}}</h5>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <input id="form1" min="1" max="9" [(ngModel)]="passengerCount" name="quantity" value="1" type="number"
+                                            <input id="form1" min="1" max="9" [(ngModel)]="passengerCount"
+                                                name="quantity" value="1" type="number"
                                                 class="form-control form-control-sm" />
                                             <button (click)="passengerSubmit()">
                                                 submit
@@ -84,7 +51,8 @@
 
                                     <!-- <hr class="my-4"> -->
 
-                                    <div *ngIf="returnFlightPresent" class="row mb-4 d-flex justify-content-between align-items-center">
+                                    <div *ngIf="returnFlightPresent"
+                                        class="row mb-4 d-flex justify-content-between align-items-center">
 
                                         <hr class="my-4">
                                         <div class="col-md-2 col-lg-2 col-xl-2">
@@ -102,11 +70,12 @@
                                                 {{returnlightResponse.endTime}}</h5>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <input id="form1" min="1" max="9" [(ngModel)]="returnPassengerCount" name="quantity" value="1" type="number"
-                                            class="form-control form-control-sm" />
-                                        <button (click)="returnPassengerSubmit()">
-                                            submit
-                                        </button>
+                                            <input id="form1" min="1" max="9" [(ngModel)]="returnPassengerCount"
+                                                name="quantity" value="1" type="number"
+                                                class="form-control form-control-sm" />
+                                            <button (click)="returnPassengerSubmit()">
+                                                submit
+                                            </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h5 class="mb-0">€ {{returnFlightTicketPrice}}</h5>
@@ -133,16 +102,18 @@
                                             <h5 class="text-muted">{{hotelResponse.hotelName}}</h5>
                                             <h5 class="text-black mb-0">{{hotelResponse.franchiseName}}</h5>
                                             <h5 class="text-black mb-0">{{hotelResponse.hotelType}}</h5>
-                                            <h5 class="text-black mb-0">{{hotelCheckInDate}} to {{hotelCheckOutDate}}</h5>
+                                            <h5 class="text-black mb-0">{{hotelCheckInDate}} to {{hotelCheckOutDate}}
+                                            </h5>
                                             <h5 class="text-black mb-0">{{hotelCheckInDays}} Days</h5>
                                             <h5 class="text-black mb-0">{{hotelResponse.location}}</h5>
                                         </div>
                                         <div class="col-md-3 col-lg-3 col-xl-2 d-flex">
-                                            <input id="form1" min="1" max="9" [(ngModel)]="hotelRoomsCount" name="quantity" value="1" type="number"
-                                            class="form-control form-control-sm" />
-                                        <button (click)="hotelPassengerSubmit()">
-                                            submit
-                                        </button>
+                                            <input id="form1" min="1" max="9" [(ngModel)]="hotelRoomsCount"
+                                                name="quantity" value="1" type="number"
+                                                class="form-control form-control-sm" />
+                                            <button (click)="hotelPassengerSubmit()">
+                                                submit
+                                            </button>
                                         </div>
                                         <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                             <h5 class="mb-0">$ {{hotelRoomPrice}}</h5>
@@ -160,12 +131,30 @@
 
                                     <div class="d-flex justify-content-between mb-4">
                                         <h5 class="text-uppercase">items {{count}}</h5>
-                                        <h5>€ {{totalPrice}}</h5>
+                                        <h5>$ {{totalPrice}}</h5>
+                                    </div>
+
+                                    <div *ngIf="isPromoValid" class="d-flex justify-content-between mb-4"
+                                    style="color:green ;">
+                                        <h5 class="text-uppercase">{{promoName}} </h5>
+                                        <h5>$ {{offerPrice}}</h5>
+                                    </div>
+
+                                    <div *ngIf="isReedemed" class="d-flex justify-content-between mb-4"
+                                    style="color:green ;">
+                                        <h5 class="text-uppercase">Redeemed price </h5>
+                                        <h5>$ {{redeemedPrice}}</h5>
+                                    </div>
+
+                                    <div *ngIf="offerDiscount" class="d-flex justify-content-between mb-4"
+                                        style="color:green ;">
+                                        <h5 class="text-uppercase">offer (20%)</h5>
+                                        <h5>$ {{discountedPrice}}</h5>
                                     </div>
 
                                     <div class="d-flex justify-content-between mb-4">
-                                        <h5 class="text-uppercase">Sales Tax (8.25%)</h5>
-                                        <h5>€ {{tax}}</h5>
+                                        <h5 class="text-uppercase">Tax (15%)</h5>
+                                        <h5>$ {{tax}}</h5>
                                     </div>
 
                                     <!-- <h5 class="text-uppercase mb-3">Shipping</h5>
@@ -184,20 +173,28 @@
                                     <div class="mb-5">
                                         <div class="form-outline">
                                             <input type="text" id="form3Examplea2"
-                                                class="form-control form-control-lg" />
-                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                                class="form-control form-control-lg" [formControl]="myFormGroup.controls['promoCode']" />
                                         </div>
+                                        <div class="d-flex justify-content-between mb-4 mt-1">
+                                            <label class="form-label" for="form3Examplea2">Enter your code</label>
+                                            <button type="button" (click)="apply()">Apply</button>
+                                        </div>
+                                    </div>
+
+                                    <div *ngIf="isUserExists" class="d-flex justify-content-between mb-4">
+                                        <h5 class="text-muted">Redeemable mileage: {{userMileage}}</h5>
+                                        <button *ngIf="isReedemable" type="button" (click)="redeem()">Reedem</button>
                                     </div>
 
                                     <hr class="my-4">
 
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
-                                        <h5>€ {{totalPrice + tax}}</h5>
+                                        <h5>$ {{finalPrice}}</h5>
                                     </div>
 
                                     <button type="button" class="btn btn-dark btn-block btn-lg"
-                                        data-mdb-ripple-color="dark" (click)="submit()">Register</button>
+                                        data-mdb-ripple-color="dark" (click)="submit()">Book</button>
                                 </div>
                             </div>
                         </div>

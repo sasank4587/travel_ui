@@ -1,3 +1,4 @@
+
 export class TransactionRequest{
     userId : number;
     flightId : number;
@@ -12,8 +13,12 @@ export class TransactionRequest{
     taxPrice : number;
     promoCode : number;
     paidPrice : number;
+    remainingMileage : number;
+    discountPrice : number;
+    redeemedPrice : number;
+    offerPrice : number;
 
-    constructor(userId, flightId, flightPassengers, returnFlightId, returnFlightPassengers, hotelRoomId, numberOfHotelRooms, checkInDate, checkOutDate, price, taxPrice, promoCode, paidPrice){
+    constructor(userId, flightId, flightPassengers, returnFlightId, returnFlightPassengers, hotelRoomId, numberOfHotelRooms, checkInDate, checkOutDate, price, taxPrice, promoCode, paidPrice, remainingMileage, discountPrice, redeemedPrice, offerPrice){
         this.userId = userId;
         this.flightId = flightId;
         this.flightPassengers = flightPassengers;
@@ -27,5 +32,9 @@ export class TransactionRequest{
         this.taxPrice =  taxPrice;
         this.promoCode = promoCode;
         this.paidPrice = paidPrice;
+        this.remainingMileage = remainingMileage;
+        this.discountPrice = discountPrice;
+        this.redeemedPrice = redeemedPrice;
+        this.offerPrice = offerPrice;
     }
 }

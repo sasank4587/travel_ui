@@ -120,7 +120,7 @@
                 </div>
             </div>
             <div fxLayout="row" fxFlex>
-                <div fxLayout="column" fxFill *ngIf="areFlightsAvailable" class="mt-4  p-3 mb-5 bg-white rounded card"
+                <div fxLayout="column" fxFill *ngIf="areFlightsAvailable && showFlights" class="mt-4  p-3 mb-5 bg-white rounded card"
                     style="border-radius: 15px;">
                     <!-- <div class="example-header" style="float:right ;">
                         <mat-form-field>
@@ -176,10 +176,10 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
                 </div>
-                <div fxLayout="column" *ngIf="!areFlightsAvailable && onSearchClick" fxFill style="text-align:center ;">
+                <div fxLayout="column" *ngIf="!areFlightsAvailable && showFlights" fxFill style="text-align:center ;">
                     Flights are not available for this date. Try changing dates.
                 </div>
-                <div fxLayout="column" fxFill *ngIf="returnFlightsRequired && areReturnFlightsAvailable"
+                <div fxLayout="column" fxFill *ngIf="showReturnFlights && areReturnFlightsAvailable"
                     class="mt-4  p-3 mb-5 bg-white rounded card">
                     <h1> Showing return flights</h1>
                     <mat-table #table [dataSource]="dataSource">
@@ -230,7 +230,7 @@
                         <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
                     </mat-table>
                 </div>
-                <div fxLayout="column" *ngIf="!areReturnFlightsAvailable && onSearchClick && returnFlightsRequired"
+                <div fxLayout="column" *ngIf="!areReturnFlightsAvailable && showReturnFlights"
                     fxFill style="text-align:center ;">
                     Return Flights are not available for this date. Try changing dates.
                 </div>

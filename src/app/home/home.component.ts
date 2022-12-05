@@ -14,7 +14,7 @@ import { FlightSearchRequest } from '../model/flight-search-request.model';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent implements OnInit{
+export class FlightSearchComponent implements OnInit{
   checkBox = this.formBuilder.group({
     return: false,
   });
@@ -36,6 +36,8 @@ export class HomeComponent implements OnInit{
   dataSource : any;
   flightSearchRequest : FlightSearchRequest;
   firstName : string;
+  showFlights : boolean = false;
+  showReturnFlights : boolean = false;
 
   constructor(public flightSearchService : FlightSearchService,  public router: Router, private formBuilder : FormBuilder) {
    }
@@ -71,6 +73,7 @@ export class HomeComponent implements OnInit{
           this.flightsList = this.flightSearchResponse.flightList;
           this.dataSource = new MatTableDataSource(this.flightsList);
           this.areFlightsAvailable = true;
+          this.showFlights = true;
           if(this.checkBox.value.return){
             if(this.flightSearchResponse.returnFlightList.length == 0){
               this.areReturnFlightsAvailable = false;
@@ -86,11 +89,13 @@ export class HomeComponent implements OnInit{
   }
 
   btnClick(value: string){
+    this.showFlights = false;
     sessionStorage.setItem("travelFlightId", value);
     if(this.checkBox.value.return){
       this.dataSource = new MatTableDataSource(this.returnFlightsList);
-      this.areFlightsAvailable = false;
+      this.areFlightsAvailable = true;
       this.returnFlightsRequired = true;
+      this.showReturnFlights = true;
     } else{
       this.router.navigate(['/checkout']);
     }

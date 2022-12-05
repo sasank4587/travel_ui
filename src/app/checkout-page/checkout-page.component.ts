@@ -9,6 +9,12 @@ import { HotelSearchService } from '../services/hotels/hotel-service';
 import { HotelRoomResponse } from '../model/hotel-room-response.model';
 import { HotelResponse } from '../model/hotel-response.model';
 import { HotelSearchResponse } from '../model/hotel-search-response.model';
+import { UserProfile } from '../model/UserProfile.model';
+import { UserProfileService } from '../services/user-profile/user-profile.service';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
+import { AppliedPromoResponse } from '../model/applied-promo-response.model';
+import { ApplyPromoRequest } from '../model/apply-promo-request.model';
+import { PromoService } from '../services/promo-service/promo-service-search';
 
 @Component({
   selector: 'app-checkout-page',
@@ -16,12 +22,29 @@ import { HotelSearchResponse } from '../model/hotel-search-response.model';
   styleUrls: ['./checkout-page.component.css']
 })
 export class CheckoutPageComponent implements OnInit {
+
+
+  myFormGroup : FormGroup;
+  promoApplied : any;
+
+  isPromoEntered : boolean = false;
+  isPromoValid : boolean = false;
+
+  offerPrice : number = 0;
+  promoId : number;
+  promoName : string;
+
+  addPromoRequest : ApplyPromoRequest;
+  appliedPromo : AppliedPromoResponse;
+
+
+
   passengerCount: number = 0;
   returnPassengerCount: number = 0;
-  hotelRoomsCount : number = 0;
+  hotelRoomsCount: number = 0;
   flightResponse: FlightResponse;
   returnlightResponse: FlightResponse;
-  hotelResponse : HotelResponse;
+  hotelResponse: HotelResponse;
   flightNumber: String;
   flightSource: String;
   flightDestination: String;
@@ -31,7 +54,7 @@ export class CheckoutPageComponent implements OnInit {
   hotelId: any;
   hotelCheckInDate: string;
   hotelCheckOutDate: string;
-  hotelCheckInDays : any;
+  hotelCheckInDays: any;
   flightPresent: Boolean = false;
   returnFlightPresent: Boolean = false;
   hotelPresent: Boolean = false;
@@ -39,12 +62,47 @@ export class CheckoutPageComponent implements OnInit {
   tax: number = 0;
   count: number = 0;
   userId: any;
-  flightTicketPrice : number;
-  returnFlightTicketPrice : number;
-  hotelRoomPrice : number;
+  flightTicketPrice: number;
+  returnFlightTicketPrice: number;
+  hotelRoomPrice: number;
+
+  offerDiscount: Boolean = false;
+  discountedPrice: number = 0;
+
+  id: string;
+  profileDetails: UserProfile;
+  isUserExists: boolean = false;
+
+  isReedemable: boolean = false;
+  redeemedPrice: number = 0;
+  userMileage: number;
+  isReedemed: boolean = false;
+  numberOfTicketsRedeemed: number = 0;
+
+  finalPrice: number = 0;
+
+  messageSuccess : boolean = false;
 
 
-  constructor(public flightSearchService: FlightSearchService, public hotelSearchService : HotelSearchService, public router: Router, public transactionService: TransactionServie) {
+  constructor(formbuilder : FormBuilder,public profileService: UserProfileService, public flightSearchService: FlightSearchService, public hotelSearchService: HotelSearchService, public router: Router, public transactionService: TransactionServie, public promoService : PromoService) {
+
+
+    this.myFormGroup=formbuilder.group({
+      "promoCode" : new FormControl("")
+    })
+
+
+    this.id = sessionStorage.getItem('id');
+    this.profileService.getProfileDetails(this.id).subscribe(response => {
+      this.profileDetails = response;
+      console.log(this.profileDetails);
+      if (this.profileDetails == null) {
+        this.isUserExists = false;
+      } else {
+        this.isUserExists = true;
+        this.userMileage = this.profileDetails.travelMileage;
+      }
+    });
     this.flightId = sessionStorage.getItem("travelFlightId");
     if (this.flightId != null) {
       this.flightPresent = true;
@@ -53,10 +111,23 @@ export class CheckoutPageComponent implements OnInit {
       this.flightSearchService.getFlightDetails(this.flightId).subscribe(response => {
         console.log(response);
         this.flightResponse = response;
+        console.log(this.userMileage);
+        if ((this.flightResponse.flightType == "Domestic" && this.userMileage >= 25000) || (this.flightResponse.flightType == "International" && this.userMileage >= 50000)) {
+          this.isReedemable = true;
+        }
+        console.log('isredeeamable');
+        console.log(this.isReedemable);
         this.flightTicketPrice = this.flightResponse.price * this.passengerCount;
         this.totalPrice += this.flightTicketPrice;
-        this.tax = this.totalPrice * 0.0825;
+        this.tax = this.totalPrice * 0.15;
+
+        this.calculateDiscount();
       });
+    }
+    if(this.flightResponse != null){
+      if ((this.flightResponse.flightType == "Domestic" && this.userMileage >= 25000) || (this.flightResponse.flightType == "International" && this.userMileage >= 50000)) {
+        this.isReedemable = true;
+      }
     }
     this.returnFlightId = sessionStorage.getItem("retrunFlightId");
     if (this.returnFlightId != null) {
@@ -67,8 +138,14 @@ export class CheckoutPageComponent implements OnInit {
         this.returnlightResponse = response;
         this.returnFlightTicketPrice = this.returnlightResponse.price * this.returnPassengerCount;
         this.totalPrice += this.returnFlightTicketPrice;
-        this.tax = this.totalPrice * 0.0825;
+        this.tax = this.totalPrice * 0.15;
+        this.calculateDiscount();
       });
+    }
+    if(this.flightResponse != null){
+      if ((this.flightResponse.flightType == "Domestic" && this.userMileage >= 25000) || (this.flightResponse.flightType == "International" && this.userMileage >= 50000)) {
+        this.isReedemable = true;
+      }
     }
     this.hotelId = sessionStorage.getItem("hotelRoomId");
     if (this.hotelId != null) {
@@ -82,9 +159,27 @@ export class CheckoutPageComponent implements OnInit {
         this.hotelResponse = response;
         this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount * this.hotelCheckInDays;
         this.totalPrice += this.hotelRoomPrice;
-        this.tax = this.totalPrice * 0.0825;
+        this.tax = this.totalPrice * 0.15;
+        this.calculateDiscount();
       });
     }
+    if(this.flightResponse != null){
+      if ((this.flightResponse.flightType == "Domestic" && this.userMileage >= 25000) || (this.flightResponse.flightType == "International" && this.userMileage >= 50000)) {
+        this.isReedemable = true;
+      }
+    }
+
+  }
+
+  calculateDiscount() {
+    if (this.hotelId != null && this.flightId != null) {
+      console.log("the discount is applicable");
+      this.offerDiscount = true;
+      console.log(this.totalPrice);
+      this.discountedPrice = (this.totalPrice - this.redeemedPrice - this.offerPrice) * 0.20;
+      this.tax = (this.totalPrice - this.discountedPrice - this.redeemedPrice - this.offerPrice) * 0.15;
+    }
+    this.finalPrice = this.totalPrice + this.tax - this.discountedPrice - this.redeemedPrice - this.offerPrice;
   }
 
   passengerSubmit() {
@@ -93,7 +188,8 @@ export class CheckoutPageComponent implements OnInit {
       this.totalPrice -= this.flightTicketPrice;
       this.flightTicketPrice = this.flightResponse.price * this.passengerCount;
       this.totalPrice += this.flightTicketPrice;
-      this.tax = this.totalPrice * 0.0825;
+      this.tax = this.totalPrice * 0.15;
+      this.calculateDiscount();
     }
   }
 
@@ -103,7 +199,8 @@ export class CheckoutPageComponent implements OnInit {
       this.totalPrice -= this.returnFlightTicketPrice;
       this.returnFlightTicketPrice = this.returnlightResponse.price * this.returnPassengerCount;
       this.totalPrice += this.returnFlightTicketPrice;
-      this.tax = this.totalPrice * 0.0825;
+      this.tax = this.totalPrice * 0.15;
+      this.calculateDiscount();
     }
   }
 
@@ -113,13 +210,14 @@ export class CheckoutPageComponent implements OnInit {
       this.totalPrice -= this.hotelRoomPrice;
       this.hotelRoomPrice = this.hotelResponse.hotelRoomsList[0].price * this.hotelRoomsCount * this.hotelCheckInDays;
       this.totalPrice += this.hotelRoomPrice;
-      this.tax = this.totalPrice * 0.0825;
+      this.tax = this.totalPrice * 0.15;
+      this.calculateDiscount();
     }
   }
 
   submit() {
     this.userId = sessionStorage.getItem('id');
-    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.hotelId, this.hotelRoomsCount, this.hotelCheckInDate, this.hotelCheckOutDate, this.totalPrice, this.tax, null, this.totalPrice + this.tax);
+    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.hotelId, this.hotelRoomsCount, this.hotelCheckInDate, this.hotelCheckOutDate, this.totalPrice, this.tax, this.promoId, this.finalPrice, this.userMileage, this.discountedPrice, this.redeemedPrice, this.offerPrice);
     this.transactionService.postTransactions(transactionRequest).subscribe((successData) => {
       this.router.navigate(['/home']);
       sessionStorage.removeItem("travelFlightId");
@@ -129,6 +227,55 @@ export class CheckoutPageComponent implements OnInit {
       sessionStorage.removeItem("hotelcheckOutDate");
       console.log(successData)
     });
+  }
+
+  redeem() {
+    this.isReedemed = true;
+    console.log("77789");
+    if (this.flightResponse.flightType == "Domestic") {
+      this.numberOfTicketsRedeemed = Math.floor(this.userMileage / 25000);
+      console.log("number of tickets");
+      console.log(this.numberOfTicketsRedeemed);
+      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 25000);
+    }
+    if (this.flightResponse.flightType == "International") {
+      this.numberOfTicketsRedeemed = Math.floor(this.userMileage / 50000);
+      console.log("number of tickets");
+      console.log(this.numberOfTicketsRedeemed);
+      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 50000);
+    }
+    if (this.returnlightResponse == null) {
+      this.redeemedPrice = this.numberOfTicketsRedeemed * this.flightResponse.price;
+    }
+    else {
+      if (this.flightResponse.price < this.returnlightResponse.price) {
+        this.redeemedPrice = this.numberOfTicketsRedeemed * this.returnlightResponse.price;
+      } else {
+        this.redeemedPrice = this.numberOfTicketsRedeemed * this.flightResponse.price;
+      }
+    }
+    this.isReedemable = false;
+    this.calculateDiscount();
+  }
+
+  apply(){
+    this.userId = sessionStorage.getItem('id');
+    this.isPromoEntered = true;
+    this.promoApplied = this.myFormGroup.controls['promoCode'].value;
+    console.log(this.promoApplied);
+    this.addPromoRequest = new ApplyPromoRequest(this.promoApplied,this.totalPrice,this.userId);
+    this.promoService.applyPromo(this.addPromoRequest).subscribe(response =>{
+      this.appliedPromo = response;
+      if(this.appliedPromo != null && this.appliedPromo.valid){
+        this.isPromoValid = true;
+        this.promoName = this.appliedPromo.promoName;
+        this.promoId = this.appliedPromo.promoId;
+        this.offerPrice = this.appliedPromo.offeredDiscount;
+        this.tax = (this.totalPrice - this.discountedPrice - this.redeemedPrice - this.offerPrice) * 0.15;
+        this.finalPrice = this.totalPrice + this.tax - this.discountedPrice - this.redeemedPrice - this.offerPrice;
+        this.calculateDiscount();
+      }
+    })
   }
 
 

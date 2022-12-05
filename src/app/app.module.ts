@@ -21,7 +21,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
-import { HomeComponent } from './home/home.component';
+import { FlightSearchComponent } from './home/home.component';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatCardModule } from '@angular/material/card';
 import { MatMenuModule } from '@angular/material/menu';
@@ -35,19 +35,29 @@ import { HotelsSearchComponent } from './hotels-search/hotels-search.component';
 import {NgbPaginationModule, NgbAlertModule, NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { BookingHistoryComponent } from './booking-history/booking-history.component';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { FlightsHotelsComponent } from './flights-hotels/flights-hotels.component';
+import { TravelHomeComponent } from './travel-home/travel-home.component';
+import { DealsSearchComponent } from './deals-search/deals-search.component';
+import { DealsCartComponent } from './deals-cart/deals-cart.component';
+import { UserDealsComponent } from './user-deals/user-deals.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavComponent,
-    HomeComponent,
+    FlightSearchComponent,
     LoginPageComponent,
     RegistrationPageComponent,
     CheckoutPageComponent,
     UserProfilePageComponent,
     UserPaymentPageComponent,
     HotelsSearchComponent,
-    BookingHistoryComponent
+    BookingHistoryComponent,
+    FlightsHotelsComponent,
+    TravelHomeComponent,
+    DealsSearchComponent,
+    DealsCartComponent,
+    UserDealsComponent
   ],
   imports: [
     BrowserModule,
