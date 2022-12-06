@@ -15,6 +15,7 @@ import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { AppliedPromoResponse } from '../model/applied-promo-response.model';
 import { ApplyPromoRequest } from '../model/apply-promo-request.model';
 import { PromoService } from '../services/promo-service/promo-service-search';
+import { UserPaymentMethods } from '../model/user-payment-methods.model';
 
 @Component({
   selector: 'app-checkout-page',
@@ -83,6 +84,9 @@ export class CheckoutPageComponent implements OnInit {
 
   messageSuccess : boolean = false;
 
+  userPaymentMethods : Array<UserPaymentMethods>;
+  paymentMethodChosen : any;
+
 
   constructor(formbuilder : FormBuilder,public profileService: UserProfileService, public flightSearchService: FlightSearchService, public hotelSearchService: HotelSearchService, public router: Router, public transactionService: TransactionServie, public promoService : PromoService) {
 
@@ -93,6 +97,11 @@ export class CheckoutPageComponent implements OnInit {
 
 
     this.id = sessionStorage.getItem('id');
+    profileService.getPaymentMethods(this.id).subscribe(response => {
+      console.log(response);
+      this.userPaymentMethods = response;
+      console.log(this.userPaymentMethods);
+    })
     this.profileService.getProfileDetails(this.id).subscribe(response => {
       this.profileDetails = response;
       console.log(this.profileDetails);
@@ -217,7 +226,7 @@ export class CheckoutPageComponent implements OnInit {
 
   submit() {
     this.userId = sessionStorage.getItem('id');
-    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.hotelId, this.hotelRoomsCount, this.hotelCheckInDate, this.hotelCheckOutDate, this.totalPrice, this.tax, this.promoId, this.finalPrice, this.userMileage, this.discountedPrice, this.redeemedPrice, this.offerPrice);
+    let transactionRequest = new TransactionRequest(this.userId, this.flightId, this.passengerCount, this.returnFlightId, this.returnPassengerCount, this.hotelId, this.hotelRoomsCount, this.hotelCheckInDate, this.hotelCheckOutDate, this.totalPrice, this.tax, this.promoId, this.finalPrice, this.userMileage, this.discountedPrice, this.redeemedPrice, this.offerPrice, this.paymentMethodChosen);
     this.transactionService.postTransactions(transactionRequest).subscribe((successData) => {
       this.router.navigate(['/home']);
       sessionStorage.removeItem("travelFlightId");
@@ -276,6 +285,12 @@ export class CheckoutPageComponent implements OnInit {
         this.calculateDiscount();
       }
     })
+  }
+
+  selectPayment(value){
+    console.log(value);
+    this.paymentMethodChosen = value;
+    console.log(this.paymentMethodChosen);
   }
 
 

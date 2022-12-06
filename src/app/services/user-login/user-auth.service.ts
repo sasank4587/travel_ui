@@ -4,6 +4,8 @@ import { AuthenticationRequest } from 'src/app/model/authentication-request.mode
 import {map} from 'rxjs/operators';
 import { UserRegistrationRequest } from 'src/app/model/user-registration-request.model';
 import { AddFeedbackRequest } from 'src/app/model/add-feedback-request.model';
+import { AddPaymentRequest } from 'src/app/model/add-payment-request.model';
+import { UserPaymentMethods } from 'src/app/model/user-payment-methods.model';
 
 const API_URL = "http://localhost:8081/user/login";
 const FEEDBACK_URL = "http://localhost:8081/user/feedback";
@@ -44,6 +46,10 @@ export class UserAuthService {
 
   addFeedback(request : AddFeedbackRequest): any{
     return this.http.post<boolean>(FEEDBACK_URL,request);
+  }
+
+  addPaymentMethod(request : AddPaymentRequest, value : any){
+    return this.http.post<Array<UserPaymentMethods>>(REGISTER_URL+"/"+value+"/addPayment",request)
   }
 
 

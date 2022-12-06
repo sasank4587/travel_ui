@@ -39,6 +39,7 @@ export class RegistrationPageComponent implements OnInit {
       "rePassword" : new FormControl("", [Validators.required]),
       "address" : new FormControl("",Validators.required),
       "contact" : new FormControl("",Validators.required),
+      "paymentName" : new FormControl("",[Validators.required]),
       "cardNumber" : new FormControl("",[Validators.required]),
       "cardName" : new FormControl("",[Validators.required]),
       "expiryDate" : new FormControl("",[Validators.required]),
@@ -176,6 +177,7 @@ export class RegistrationPageComponent implements OnInit {
         this.myFormGroup.controls['rePassword'].value.length!=0&&
         this.myFormGroup.controls['address'].value.length!=0 && 
         this.myFormGroup.controls['contact'].value.length!=0&&
+        this.myFormGroup.controls['paymentName'].value.length!=0&&
         this.myFormGroup.controls['cardNumber'].value.length!=0&&
         this.myFormGroup.controls['cardName'].value.length!=0&&
         this.myFormGroup.controls['expiryDate'].value.length!=0&&
@@ -189,6 +191,7 @@ export class RegistrationPageComponent implements OnInit {
               this.myFormGroup.controls['address'].value,
               this.myFormGroup.controls['contact'].value,
               this.myFormGroup.controls['password'].value,
+              this.myFormGroup.controls['paymentName'].value,
               this.myFormGroup.controls['cardNumber'].value,
               this.myFormGroup.controls['cardName'].value,
               this.myFormGroup.controls['expiryDate'].value,
@@ -207,6 +210,7 @@ export class RegistrationPageComponent implements OnInit {
             this.myFormGroup.controls['userName'].reset();
             this.myFormGroup.controls['contact'].reset();
             this.myFormGroup.controls['address'].reset();
+            this.myFormGroup.controls['paymentName'].reset();
             this.myFormGroup.controls['cardNumber'].reset();
             this.myFormGroup.controls['cardName'].reset();
             this.myFormGroup.controls['expiryDate'].reset();

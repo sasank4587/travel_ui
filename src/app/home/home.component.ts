@@ -28,7 +28,9 @@ export class FlightSearchComponent implements OnInit{
   filteredOptions2: Observable<string[]>;
   flightSearchResponse : FlightSearchList;
   flightsList : Array<FlightResponse>;
+  filteredFlightList: Array<FlightResponse>;
   returnFlightsList : Array<FlightResponse>;
+  filteredReturnFlightList: Array<FlightResponse>;
   areFlightsAvailable : boolean = false;
   areReturnFlightsAvailable : boolean = false;
   returnFlightsRequired : boolean = false;
@@ -38,6 +40,17 @@ export class FlightSearchComponent implements OnInit{
   firstName : string;
   showFlights : boolean = false;
   showReturnFlights : boolean = false;
+
+
+  flightAirlineFilter: any;
+  flightSortFilter: any;
+  flightSortOptions: string[] = ["Price Low to High", "Price High to Low"];
+  flightAirlines: string[] = [];
+
+  retrunFlightAirlineFilter: any;
+  returnFlightSortFilter: any;
+  returnFlightSortOptions: string[] = ["Price Low to High", "Price High to Low"];
+  returnFlightAirlines: string[] = [];
 
   constructor(public flightSearchService : FlightSearchService,  public router: Router, private formBuilder : FormBuilder) {
    }
@@ -71,7 +84,9 @@ export class FlightSearchComponent implements OnInit{
           this.areFlightsAvailable = false;
         }else{
           this.flightsList = this.flightSearchResponse.flightList;
-          this.dataSource = new MatTableDataSource(this.flightsList);
+          this.filteredFlightList = this.flightsList;
+          this.flightAirlineList();
+          this.dataSource = new MatTableDataSource(this.filteredFlightList);
           this.areFlightsAvailable = true;
           this.showFlights = true;
           if(this.checkBox.value.return){
@@ -80,6 +95,7 @@ export class FlightSearchComponent implements OnInit{
             } else{
               this.areReturnFlightsAvailable = true;
               this.returnFlightsList = this.flightSearchResponse.returnFlightList;
+              this.retrunFlightAirlineList();
               console.log("Return FLights");
               console.log(this.returnFlightsList);
             }
@@ -117,6 +133,103 @@ export class FlightSearchComponent implements OnInit{
     } else{
       this.router.navigate(['/checkout']);
     }
+  }
+
+
+
+  flightfilterAirline(value) {
+    console.log("filter flights");
+    console.log(value);
+    console.log(this.flightSortFilter)
+    if (value != null) {
+      this.filteredFlightList = this.flightsList.filter(flight => flight.airlinesName == value);
+    } else {
+      this.filteredFlightList = this.flightsList;
+    }
+    if (this.flightSortFilter == "Price Low to High") {
+      this.filteredFlightList = this.filteredFlightList.sort((a, b) => a.price - b.price);
+    } else if (this.flightSortFilter == "Price High to Low") {
+      this.filteredFlightList = this.filteredFlightList.sort((a, b) => b.price - a.price);
+    }
+    this.dataSource = new MatTableDataSource(this.filteredFlightList);
+  }
+
+  sortFLights(value) {
+    console.log("sort flights");
+    console.log(value);
+    console.log(this.flightAirlineFilter);
+    if (this.flightAirlineFilter != null) {
+      this.filteredFlightList = this.flightsList.filter(flight => flight.airlinesName == this.flightAirlineFilter);
+    } else {
+      this.filteredFlightList = this.flightsList;
+    }
+    if (value == "Price Low to High") {
+      console.log("filtering low to high")
+      this.filteredFlightList = this.filteredFlightList.sort((a, b) => a.price - b.price);
+    } else if (value == "Price High to Low") {
+      console.log("filtering high to low")
+      this.filteredFlightList = this.filteredFlightList.sort((a, b) => b.price - a.price);
+    }
+    this.dataSource = new MatTableDataSource(this.filteredFlightList);
+  }
+
+
+  returnFlightfilterAirline(value) {
+    console.log("filter return flights");
+    console.log(value);
+    console.log(this.returnFlightSortFilter)
+    if (value != null) {
+      this.filteredReturnFlightList = this.returnFlightsList.filter(flight => flight.airlinesName == value);
+    } else {
+      this.filteredReturnFlightList = this.returnFlightsList;
+    }
+    if (this.returnFlightSortFilter == "Price Low to High") {
+      this.filteredReturnFlightList = this.filteredReturnFlightList.sort((a, b) => a.price - b.price);
+    } else if (this.returnFlightSortFilter == "Price High to Low") {
+      this.filteredReturnFlightList = this.filteredReturnFlightList.sort((a, b) => b.price - a.price);
+    }
+    this.dataSource = new MatTableDataSource(this.filteredReturnFlightList);
+  }
+
+  sortReturnFLights(value) {
+    console.log("sort return flights");
+    console.log(value);
+    console.log(this.retrunFlightAirlineFilter);
+    if (this.flightAirlineFilter != null) {
+      this.filteredFlightList = this.flightsList.filter(flight => flight.airlinesName == this.flightAirlineFilter);
+    } else {
+      this.filteredReturnFlightList = this.returnFlightsList;
+    }
+    if (value == "Price Low to High") {
+      console.log("filtering low to high")
+      this.filteredReturnFlightList = this.filteredReturnFlightList.sort((a, b) => a.price - b.price);
+    } else if (value == "Price High to Low") {
+      console.log("filtering high to low")
+      this.filteredReturnFlightList = this.filteredReturnFlightList.sort((a, b) => b.price - a.price);
+    }
+    this.dataSource = new MatTableDataSource(this.filteredReturnFlightList);
+  }
+
+  retrunFlightAirlineList() {
+    console.log("retrun flight airlines");
+    for (let index = 0; index < this.returnFlightsList.length; index++) {
+      if (!this.returnFlightAirlines.includes(this.returnFlightsList[index].airlinesName)) {
+        console.log(this.returnFlightsList[index].airlinesName);
+        this.returnFlightAirlines.push(this.returnFlightsList[index].airlinesName);
+      }
+    }
+    console.log(this.returnFlightAirlines);
+  }
+
+  flightAirlineList() {
+    console.log("flight airlines");
+    for (let index = 0; index < this.flightsList.length; index++) {
+      if (!this.flightAirlines.includes(this.flightsList[index].airlinesName)) {
+        console.log(this.flightsList[index].airlinesName);
+        this.flightAirlines.push(this.flightsList[index].airlinesName);
+      }
+    }
+    console.log(this.flightAirlines);
   }
 
   private _filter1(value: string): string[] {

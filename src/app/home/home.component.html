@@ -122,11 +122,36 @@
             <div fxLayout="row" fxFlex>
                 <div fxLayout="column" fxFill *ngIf="areFlightsAvailable && showFlights" class="mt-4  p-3 mb-5 bg-white rounded card"
                     style="border-radius: 15px;">
-                    <!-- <div class="example-header" style="float:right ;">
-                        <mat-form-field>
-                          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
-                        </mat-form-field>
-                      </div> -->
+                    
+
+
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Airline Name</mat-label>
+                                <mat-select [(value)]="flightAirlineFilter" (selectionChange)="flightfilterAirline($event.value)">
+                                    <mat-option> None </mat-option>
+                                    <mat-option *ngFor="let pokemon of flightAirlines" [value]="pokemon">
+                                        {{pokemon}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="fill">
+                                <mat-label>Sort By</mat-label>
+                                <mat-select [(value)]="flightSortFilter" (selectionChange)="sortFLights($event.value)">
+                                    <mat-option> None </mat-option>
+                                    <mat-option *ngFor="let pokemon of flightSortOptions" [value]="pokemon">
+                                        {{pokemon}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+
+
+
                     <h1 style="text-align:center ;"> Showing flights</h1>
                     <mat-table #table [dataSource]="dataSource">
                         <ng-container matColumnDef="flight_number">
@@ -181,6 +206,38 @@
                 </div>
                 <div fxLayout="column" fxFill *ngIf="showReturnFlights && areReturnFlightsAvailable"
                     class="mt-4  p-3 mb-5 bg-white rounded card">
+
+
+
+
+                    <div class="row">
+                        <div class="col">
+                            <mat-form-field appearance="fill">
+                                <mat-label>Airline Name</mat-label>
+                                <mat-select [(value)]="retrunFlightAirlineFilter"
+                                    (selectionChange)="returnFlightfilterAirline($event.value)">
+                                    <mat-option> None </mat-option>
+                                    <mat-option *ngFor="let pokemon of returnFlightAirlines" [value]="pokemon">
+                                        {{pokemon}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                
+                            <mat-form-field appearance="fill">
+                                <mat-label>Sort By</mat-label>
+                                <mat-select [(value)]="returnFlightSortFilter" (selectionChange)="sortReturnFLights($event.value)">
+                                    <mat-option> None </mat-option>
+                                    <mat-option *ngFor="let pokemon of returnFlightSortOptions" [value]="pokemon">
+                                        {{pokemon}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+                    </div>
+                
+
+
+
                     <h1> Showing return flights</h1>
                     <mat-table #table [dataSource]="dataSource">
                         <ng-container matColumnDef="flight_number">

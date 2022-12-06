@@ -35,13 +35,16 @@
                         <div class="text-center">
                             <p *ngIf="passwordLength"
                                 style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">
-                                <b>password</b> should be greater than 6 and less than 12 characters </p>
+                                <b>password</b> should be greater than 6 and less than 12 characters
+                            </p>
                             <p *ngIf="prePasswordCheck"
                                 style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">Enter
-                                <b>password</b> first</p>
+                                <b>password</b> first
+                            </p>
                             <p *ngIf="passwordValidation"
                                 style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">
-                                <b>Password</b> didn't matched</p>
+                                <b>Password</b> didn't matched
+                            </p>
                             <p *ngIf="emailValid"
                                 style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">Enter
                                 Valid <b>Email</b> Id</p>
@@ -53,7 +56,8 @@
                                 Valid <b>PhoneNumber</b></p>
                             <p *ngIf="phoneValidationIsNan"
                                 style="color: red; text-transform: capitalize;font-size: 14px;letter-spacing: 1px">Enter
-                                <b>numbers</b> only!</p>
+                                <b>numbers</b> only!
+                            </p>
 
                         </div>
 
@@ -88,8 +92,7 @@
                                 <h4 class="mb-0 text-sm">Username</h4>
                             </label>
                             <input #userName class="mb-1 form-control" [formControl]="myFormGroup.controls['userName']"
-                                type="userName" name="userName"
-                                placeholder="Enter userName">
+                                type="userName" name="userName" placeholder="Enter userName">
                         </div>
 
                         <div class="form-group row px-3">
@@ -126,8 +129,8 @@
                             <label class="mb-0">
                                 <h4 class="mb-0 text-sm">Address</h4>
                             </label>
-                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['address']"
-                                #address type="text" name="address" placeholder="Enter your address">
+                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['address']" #address
+                                type="text" name="address" placeholder="Enter your address">
                         </div>
 
                         <!-- <div class="form-group row px-3">
@@ -146,6 +149,14 @@
 
                         <div class="form-group row px-3">
                             <label class="mb-0">
+                                <h4 class="mb-0 text-sm">Payment Method Name</h4>
+                            </label>
+                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['paymentName']"
+                                #cardNumber type="text" name="cardNumber" placeholder="Enter the payment name">
+                        </div>
+
+                        <div class="form-group row px-3">
+                            <label class="mb-0">
                                 <h4 class="mb-0 text-sm">Credit/Debit card number</h4>
                             </label>
                             <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cardNumber']"
@@ -156,8 +167,8 @@
                             <label class="mb-0">
                                 <h4 class="mb-0 text-sm">Name on the Card</h4>
                             </label>
-                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cardName']"
-                                #cardName type="text" name="cardName" placeholder="Enter the name on the card">
+                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cardName']" #cardName
+                                type="text" name="cardName" placeholder="Enter the name on the card">
                         </div>
 
                         <div class="form-group row px-3">
@@ -172,8 +183,8 @@
                             <label class="mb-0">
                                 <h4 class="mb-0 text-sm">Security Code</h4>
                             </label>
-                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cvv']"
-                                #cvv type="text" name="cvv" placeholder="Enter your cvv">
+                            <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cvv']" #cvv
+                                type="text" name="cvv" placeholder="Enter your cvv">
                         </div>
 
                         <div class="form-group row mb-3 px-3"> <button type="submit"

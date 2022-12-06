@@ -135,13 +135,13 @@
                                     </div>
 
                                     <div *ngIf="isPromoValid" class="d-flex justify-content-between mb-4"
-                                    style="color:green ;">
+                                        style="color:green ;">
                                         <h5 class="text-uppercase">{{promoName}} </h5>
                                         <h5>$ {{offerPrice}}</h5>
                                     </div>
 
                                     <div *ngIf="isReedemed" class="d-flex justify-content-between mb-4"
-                                    style="color:green ;">
+                                        style="color:green ;">
                                         <h5 class="text-uppercase">Redeemed price </h5>
                                         <h5>$ {{redeemedPrice}}</h5>
                                     </div>
@@ -172,8 +172,8 @@
 
                                     <div class="mb-5">
                                         <div class="form-outline">
-                                            <input type="text" id="form3Examplea2"
-                                                class="form-control form-control-lg" [formControl]="myFormGroup.controls['promoCode']" />
+                                            <input type="text" id="form3Examplea2" class="form-control form-control-lg"
+                                                [formControl]="myFormGroup.controls['promoCode']" />
                                         </div>
                                         <div class="d-flex justify-content-between mb-4 mt-1">
                                             <label class="form-label" for="form3Examplea2">Enter your code</label>
@@ -191,6 +191,21 @@
                                     <div class="d-flex justify-content-between mb-5">
                                         <h5 class="text-uppercase">Total price</h5>
                                         <h5>$ {{finalPrice}}</h5>
+                                    </div>
+
+                                    <h5 class="text-uppercase mb-3">Payment Methods</h5>
+
+                                    <div class="mb-4 pb-2">
+                                        <mat-form-field appearance="fill">
+                                            <mat-label>Payment Option</mat-label>
+                                            <mat-select [(value)]="paymentMethodChosen"
+                                                (selectionChange)="selectPayment($event.value)">
+                                                <mat-option *ngFor="let pokemon of userPaymentMethods"
+                                                    [value]="pokemon.id">
+                                                    {{pokemon.paymentName}}-{{pokemon.cardNumber}}
+                                                </mat-option>
+                                            </mat-select>
+                                        </mat-form-field>
                                     </div>
 
                                     <button type="button" class="btn btn-dark btn-block btn-lg"

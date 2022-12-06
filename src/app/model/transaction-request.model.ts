@@ -17,8 +17,9 @@ export class TransactionRequest{
     discountPrice : number;
     redeemedPrice : number;
     offerPrice : number;
+    paymentId : any;
 
-    constructor(userId, flightId, flightPassengers, returnFlightId, returnFlightPassengers, hotelRoomId, numberOfHotelRooms, checkInDate, checkOutDate, price, taxPrice, promoCode, paidPrice, remainingMileage, discountPrice, redeemedPrice, offerPrice){
+    constructor(userId, flightId, flightPassengers, returnFlightId, returnFlightPassengers, hotelRoomId, numberOfHotelRooms, checkInDate, checkOutDate, price, taxPrice, promoCode, paidPrice, remainingMileage, discountPrice, redeemedPrice, offerPrice, paymentId){
         this.userId = userId;
         this.flightId = flightId;
         this.flightPassengers = flightPassengers;
@@ -36,5 +37,6 @@ export class TransactionRequest{
         this.discountPrice = discountPrice;
         this.redeemedPrice = redeemedPrice;
         this.offerPrice = offerPrice;
+        this.paymentId = paymentId;
     }
 }
