@@ -27,4 +27,9 @@ export class FlightSearchService {
     return this.http.get<FlightResponse>(API_URL+"/"+flightId)
   }
 
+  getFlightStatus(flightId : any) : any{
+    console.log(flightId);
+    return this.http.get<string>(API_URL+"/status/"+flightId);
+  }
+
 }

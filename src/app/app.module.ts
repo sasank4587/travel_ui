@@ -40,6 +40,8 @@ import { TravelHomeComponent } from './travel-home/travel-home.component';
 import { DealsSearchComponent } from './deals-search/deals-search.component';
 import { DealsCartComponent } from './deals-cart/deals-cart.component';
 import { UserDealsComponent } from './user-deals/user-deals.component';
+import { FlightStatusComponent } from './flight-status/flight-status.component';
+import { UserFeedbackComponent } from './user-feedback/user-feedback.component';
 
 @NgModule({
   declarations: [
@@ -57,7 +59,9 @@ import { UserDealsComponent } from './user-deals/user-deals.component';
     TravelHomeComponent,
     DealsSearchComponent,
     DealsCartComponent,
-    UserDealsComponent
+    UserDealsComponent,
+    FlightStatusComponent,
+    UserFeedbackComponent
   ],
   imports: [
     BrowserModule,

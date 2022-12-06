@@ -35,6 +35,7 @@
                                     <th>Start Date</th>
                                     <th>End Date</th>
                                     <th>Number of Passengers</th>
+                                    <th>Flight Reference</th>
                                     <th>Distance travelled</th>
                                     <th>Price(per 1 person)</th>
                                 </tr>
@@ -50,6 +51,7 @@
                                     <td>{{transaction.flightResponse.startDate}}</td>
                                     <td>{{transaction.flightResponse.endDate}}</td>
                                     <td>{{transaction.numberOfPassengers}}</td>
+                                    <td>{{transaction.flightResponse.flightReference}}</td>
                                     <td>{{transaction.flightResponse.miles}}</td>
                                     <td>{{transaction.flightResponse.price}}</td>
                                 </tr>
@@ -62,6 +64,7 @@
                                     <td>{{transaction.returnFlightResponse.startDate}}</td>
                                     <td>{{transaction.returnFlightResponse.endDate}}</td>
                                     <td>{{transaction.returnPassengers}}</td>
+                                    <td>{{transaction.returnFlightResponse.flightReference}}</td>
                                     <td>{{transaction.returnFlightResponse.miles}}</td>
                                     <td>{{transaction.returnFlightResponse.price}}</td>
                                 </tr>

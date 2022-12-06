@@ -3,8 +3,10 @@ import { Injectable } from '@angular/core';
 import { AuthenticationRequest } from 'src/app/model/authentication-request.model';
 import {map} from 'rxjs/operators';
 import { UserRegistrationRequest } from 'src/app/model/user-registration-request.model';
+import { AddFeedbackRequest } from 'src/app/model/add-feedback-request.model';
 
 const API_URL = "http://localhost:8081/user/login";
+const FEEDBACK_URL = "http://localhost:8081/user/feedback";
 const REGISTER_URL = "http://localhost:8081/user";
 //export const Forgot_URL="http://localhost:8082/tweets";
 
@@ -38,6 +40,10 @@ export class UserAuthService {
         return failureData;
       })
     );
+  }
+
+  addFeedback(request : AddFeedbackRequest): any{
+    return this.http.post<boolean>(FEEDBACK_URL,request);
   }
 
 

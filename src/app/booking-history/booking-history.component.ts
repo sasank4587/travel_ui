@@ -23,7 +23,7 @@ export class BookingHistoryComponent implements OnInit {
     this.userId = sessionStorage.getItem("id");
     this.firstName = sessionStorage.getItem("firstName");
     this.lastName = sessionStorage.getItem("lastName");
-    this.profileName = this.firstName+this.lastName;
+    this.profileName = this.firstName+" " + this.lastName;
     transactionService.getHistory(this.userId).subscribe(response =>{
       console.log(response);
       this.transactionHistory = response;

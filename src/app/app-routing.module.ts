@@ -13,6 +13,8 @@ import { TravelHomeComponent } from './travel-home/travel-home.component';
 import { DealsSearchComponent } from './deals-search/deals-search.component';
 import { DealsCartComponent } from './deals-cart/deals-cart.component';
 import { UserDealsComponent } from './user-deals/user-deals.component';
+import { FlightStatusComponent } from './flight-status/flight-status.component';
+import { UserFeedbackComponent } from './user-feedback/user-feedback.component';
 
 const routes: Routes = [
   {path : "" , redirectTo : "flight", pathMatch : "full"},
@@ -28,6 +30,8 @@ const routes: Routes = [
   {path : "flight", component : FlightSearchComponent},
   {path : "deals" , component : DealsSearchComponent},
   {path : "deals-cart", component : DealsCartComponent},
+  {path : "flight-status", component : FlightStatusComponent},
+  {path : "feedback", component : UserFeedbackComponent},
   {path : "user-deals", component : UserDealsComponent}
 ];
 
