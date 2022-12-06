@@ -1,1 +1,45 @@
-<p>user-payment-page works!</p>
+<div>
+    <app-nav class="top"></app-nav>
+</div>
+<section class="vh-100">
+    <div class="container py-5 h-100">
+        <div class="rowjustify-content-center h-100">
+            <!-- <div class="col col-md-9 col-lg-7 col-xl-5"> -->
+                <div *ngFor="let transaction of userPaymentMethods; index as i;" class="card mb-5" style="border-radius: 15px; margin-left:20% ; margin-right:20% ;" >
+                    <div class="card-body p-4">
+                        <div class="text-black">
+                            <div class="flex-grow-1 ms-3">
+                                <p *ngIf="transaction.default" class="mb-2 pb-1" style="margin-left:10% ;">Default Payment method</p>
+                                <div class="rounded-3 p-2 mb-2" style="background-color: #efefef; margin-left:10% ; margin-right:10% ;">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted mb-1">Payment Name :</p>
+                                        <p>{{transaction.paymentName}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted mb-1">Card Number :</p>
+                                        <p>{{transaction.cardNumber}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted mb-1">Name on the card :</p>
+                                        <p>{{transaction.nameOnTheCard}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted mb-1">Expiry Date :</p>
+                                        <p>{{transaction.expiryDate}}</p>
+                                    </div>
+                                    <div class="d-flex justify-content-between">
+                                        <p class="text-muted mb-1">Security code :</p>
+                                        <p>{{transaction.securityCode}}</p>
+                                    </div>
+                                </div>
+                                <div *ngIf="!transaction.default" class="d-flex pt-1">
+                                    <button type="button" class="btn btn-dark flex-grow-1" (click)="makeDefault(transaction.id)">Default</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <!-- </div> -->
+        </div>
+    </div>
+</section>
