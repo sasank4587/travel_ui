@@ -5,12 +5,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </head>
 
-<!-- header -->
-<div class="jumbotron" style="text-align: center;">
-    <h1>Travel Hut</h1>
+<div class="top">
+    <app-nav></app-nav>
 </div>
+<!-- <div class="jumbotron" style="text-align: center;">
+    <h1>Travel Hut</h1>
+</div> -->
 <!-- container -->
-<div class="">
+<div class="" style="margin-top:3% ;">
     <form class="formgroup" [formGroup]="myFormGroup" (ngSubmit)="register()">
         <div class="card bg-dark text-white">
 
