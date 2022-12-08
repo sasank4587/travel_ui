@@ -19,12 +19,12 @@
             <!-- content -->
             <div class="row content d-flex">
                 <div class="col-lg-3">
-                    <div *ngIf="showElement" class=" msg mt-1">
+                    <!-- <div *ngIf="showElement" class=" msg mt-1">
                         <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show"
                             role="alert">
                             <strong>Registered successfully!</strong>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="col-lg-6">
                     <div class="">
@@ -186,15 +186,30 @@
                                 <h4 class="mb-0 text-sm">Security Code</h4>
                             </label>
                             <input class="mb-2 form-control" [formControl]="myFormGroup.controls['cvv']" #cvv
-                                type="text" name="cvv" placeholder="Enter your cvv">
+                                type="password" name="cvv" placeholder="Enter your cvv">
                         </div>
 
-                        <div class="form-group row mb-3 px-3"> <button type="submit"
-                                class="btn btn-primary btn-block btn-blue text-center">Register</button> </div>
+                        <div class="form-group row mb-3 px-3" style="margin-left:33% ; margin-right:33% ;"> <button
+                                type="submit" class="btn btn-primary btn-block btn-blue text-center">Register</button>
+                        </div>
+                        <div *ngIf="showElement" class=" msg mt-1">
+                            <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show"
+                                role="alert">
+                                <strong>Registered successfully!</strong>
+                            </div>
+                        </div>
                         <div class="row mb-4 px-3"> <small class="font-weight-bold">Already a user? <a
                                     class="text-danger " [routerLink]="['/login']">Login</a></small> </div>
                     </div>
                 </div>
+            </div>
+            <div class="col-lg-3">
+                <!-- <div *ngIf="showElement" class=" msg mt-1">
+                    <div id="alert-dismissible" class="alert alert-success alert-dismissible fade show"
+                        role="alert">
+                        <strong>Registered successfully!</strong>
+                    </div>
+                </div> -->
             </div>
         </div>
 
