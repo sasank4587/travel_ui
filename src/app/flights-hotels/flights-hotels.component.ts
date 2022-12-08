@@ -119,7 +119,7 @@ export class FlightsHotelsComponent implements OnInit {
     console.log(this.startDate.value);
     console.log(this.retrunDate.value);
     console.log(this.checkBox.value.return)
-    this.flightSearchRequest = new FlightSearchRequest(this.sourceControl.value, this.destinationControl.value, this.startDate.value, this.retrunDate.value, this.checkBox.value.return);
+    this.flightSearchRequest = new FlightSearchRequest(this.sourceControl.value, this.destinationControl.value, new Date(this.startDate.value + " "), new Date(this.retrunDate.value + " "), this.checkBox.value.return);
     this.flightSearchService.getFlightsList(this.flightSearchRequest).subscribe(response => {
       this.flightSearchResponse = response;
       console.log(this.flightSearchResponse);
@@ -145,7 +145,7 @@ export class FlightsHotelsComponent implements OnInit {
       }
     });
 
-    this.hotelSearchRequest = new HotelSearchRequest(this.destinationControl.value, "", this.startDate.value, this.retrunDate.value);
+    this.hotelSearchRequest = new HotelSearchRequest(this.destinationControl.value, "", new Date(this.startDate.value + " "), new Date(this.retrunDate.value + " "));
     this.hotelSearchService.getHotels(this.hotelSearchRequest).subscribe(response => {
       this.hotelSearchResponse = response;
       console.log(this.hotelSearchResponse);

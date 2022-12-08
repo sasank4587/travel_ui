@@ -1,8 +1,8 @@
 export class HotelSearchRequest{
     sourceCity : string;
     franchiseName : string;
-    checkInDate : Date;
-    checkOutDate : Date;
+    checkInDate : any;
+    checkOutDate : any;
 
     constructor(sourceCity, franchiseName, checkInDate, checkOutDate){
         this.sourceCity = sourceCity;

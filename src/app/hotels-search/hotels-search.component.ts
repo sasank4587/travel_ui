@@ -73,7 +73,7 @@ export class HotelsSearchComponent implements OnInit {
     console.log(this.sourceControl.value);
     console.log(this.startDate.value);
     console.log(this.retrunDate.value);
-    this.hotelSearchRequest = new HotelSearchRequest(this.sourceControl.value, "", this.startDate.value, this.retrunDate.value);
+    this.hotelSearchRequest = new HotelSearchRequest(this.sourceControl.value, "", new Date(this.startDate.value+" "), new Date(this.retrunDate.value+ " "));
     this.hotelSearchService.getHotels(this.hotelSearchRequest).subscribe(response => {
       this.hotelSearchResponse = response;
       console.log(this.hotelSearchResponse);

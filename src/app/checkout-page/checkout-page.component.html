@@ -179,6 +179,12 @@
                                             <label class="form-label" for="form3Examplea2">Enter your code</label>
                                             <button type="button" (click)="apply()">Apply</button>
                                         </div>
+                                        <div *ngIf="isPromoEntered && isPromoValid" class="d-flex justify-content-between mb-4">
+                                            <h5 class="text" style="color:green ;">Promo Code successfully applied</h5>
+                                        </div>
+                                        <div *ngIf="isPromoEntered && !isPromoValid" class="d-flex justify-content-between mb-4" style="color:green ;">
+                                            <h5 class="text" style="color:red ;">Promo Code entered is invalid</h5>
+                                        </div>
                                     </div>
 
                                     <div *ngIf="isUserExists" class="d-flex justify-content-between mb-4">

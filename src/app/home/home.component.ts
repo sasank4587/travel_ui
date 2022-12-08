@@ -76,7 +76,7 @@ export class FlightSearchComponent implements OnInit{
     console.log(this.startDate.value);
     console.log(this.retrunDate.value);
     console.log(this.checkBox.value.return)
-    this.flightSearchRequest = new FlightSearchRequest(this.sourceControl.value, this.destinationControl.value,this.startDate.value,this.retrunDate.value, this.checkBox.value.return);
+    this.flightSearchRequest = new FlightSearchRequest(this.sourceControl.value, this.destinationControl.value,new Date(this.startDate.value + " "),new Date(this.retrunDate.value + " "), this.checkBox.value.return);
     this.flightSearchService.getFlightsList(this.flightSearchRequest).subscribe(response =>{
       this.flightSearchResponse = response;
         console.log(this.flightSearchResponse);
@@ -107,13 +107,18 @@ export class FlightSearchComponent implements OnInit{
   btnClick(value: string){
     this.showFlights = false;
     sessionStorage.setItem("travelFlightId", value);
+    this.firstName = sessionStorage.getItem('id');
     if(this.checkBox.value.return){
       this.dataSource = new MatTableDataSource(this.returnFlightsList);
       this.areFlightsAvailable = true;
       this.returnFlightsRequired = true;
       this.showReturnFlights = true;
     } else{
-      this.router.navigate(['/checkout']);
+      if(this.firstName == null){
+        this.router.navigate(['/login']);
+      } else{
+        this.router.navigate(['/checkout']);
+      }
     }
   }
 

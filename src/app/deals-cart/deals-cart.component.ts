@@ -103,6 +103,7 @@ export class DealsCartComponent implements OnInit {
     this.promoService.addPromo(this.addPromoRequest).subscribe(response => {
       console.log(response);
       this.userPromoList = response;
+      this.router.navigate(['/home']);
     })
   }
 

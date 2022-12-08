@@ -186,9 +186,12 @@ export class CheckoutPageComponent implements OnInit {
       this.offerDiscount = true;
       console.log(this.totalPrice);
       this.discountedPrice = (this.totalPrice - this.redeemedPrice - this.offerPrice) * 0.20;
-      this.tax = (this.totalPrice - this.discountedPrice - this.redeemedPrice - this.offerPrice) * 0.15;
+      this.discountedPrice = parseFloat(this.discountedPrice.toFixed(2));
     }
+    this.tax = (this.totalPrice - this.discountedPrice - this.redeemedPrice - this.offerPrice) * 0.15;
+    this.tax = parseFloat(this.tax.toFixed(2))
     this.finalPrice = this.totalPrice + this.tax - this.discountedPrice - this.redeemedPrice - this.offerPrice;
+    this.finalPrice = parseFloat(this.finalPrice.toFixed(2));
   }
 
   passengerSubmit() {
@@ -245,23 +248,41 @@ export class CheckoutPageComponent implements OnInit {
       this.numberOfTicketsRedeemed = Math.floor(this.userMileage / 25000);
       console.log("number of tickets");
       console.log(this.numberOfTicketsRedeemed);
-      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 25000);
+      // this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 25000);
     }
     if (this.flightResponse.flightType == "International") {
       this.numberOfTicketsRedeemed = Math.floor(this.userMileage / 50000);
       console.log("number of tickets");
       console.log(this.numberOfTicketsRedeemed);
-      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 50000);
+      // this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 50000);
     }
     if (this.returnlightResponse == null) {
       this.redeemedPrice = this.numberOfTicketsRedeemed * this.flightResponse.price;
+      if(this.redeemedPrice > this.flightTicketPrice){
+        this.redeemedPrice = this.flightTicketPrice;
+        this.numberOfTicketsRedeemed = Math.floor(this.redeemedPrice/this.flightResponse.price);
+      }
     }
     else {
       if (this.flightResponse.price < this.returnlightResponse.price) {
         this.redeemedPrice = this.numberOfTicketsRedeemed * this.returnlightResponse.price;
+        if(this.redeemedPrice > this.returnFlightTicketPrice){
+          this.redeemedPrice = this.returnFlightTicketPrice;
+          this.numberOfTicketsRedeemed = Math.floor(this.redeemedPrice/this.returnlightResponse.price);
+        }
       } else {
         this.redeemedPrice = this.numberOfTicketsRedeemed * this.flightResponse.price;
+        if(this.redeemedPrice > this.flightTicketPrice){
+          this.redeemedPrice = this.flightTicketPrice;
+          this.numberOfTicketsRedeemed = Math.floor(this.redeemedPrice/this.flightResponse.price);
+        }
       }
+    }
+    if(this.flightResponse.flightType == "Domestic"){
+      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 25000);
+    }
+    if(this.flightResponse.flightType == "International"){
+      this.userMileage = this.userMileage - (this.numberOfTicketsRedeemed * 50000);
     }
     this.isReedemable = false;
     this.calculateDiscount();
